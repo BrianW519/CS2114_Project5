@@ -40,7 +40,7 @@ public class Category {
         }
     }
 
-
+//
     public void updateData(SubEnum sub, int j) {
         Stats chosen = null;
         for (int i = 1; i <= 4; i++) {
