@@ -11,6 +11,15 @@ package prj5;
 public class FileReader {
 
     private SongList<Song> songs;
-    
-    
+
+
+    public void readFile(String songFile, String inputFile) {
+
+    }
+
+
+    public SongList<Song> getSongList() {
+        return songs;
+    }
+
 }
