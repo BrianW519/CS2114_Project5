@@ -9,7 +9,7 @@ package prj5;
  *
  */
 public class Stats {
-    //
+    
     private SubEnum sub;
     private int likes;
     private int dislikes;
@@ -25,6 +25,27 @@ public class Stats {
     public void like() {
         likes++;
         heardSong++;
+    }
+    
+    public void dislike() {
+        dislikes++;
+        heardSong++;
+    }
+    
+    public int getLikes() {
+        return likes;
+    }
+    
+    public int getDislikes() {
+        return dislikes;
+    }
+    
+    public int getHeardSong() {
+        return heardSong;
+    }
+    
+    public SubEnum getSubCategory() {
+        return sub; 
     }
 
 }
