@@ -10,6 +10,7 @@ package prj5;
  */
 public class Stats {
     
+    //fields
     private SubEnum sub;
     private int likes;
     private int dislikes;

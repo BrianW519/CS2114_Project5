@@ -40,7 +40,13 @@ public class Category {
         }
     }
 
-//
+    /**
+     * Updates the stats for the enum
+     * @param sub
+     *          the subcategory to update
+     * @param j
+     *          a positive or negative value indicating liked or disliked
+     */
     public void updateData(SubEnum sub, int j) {
         Stats chosen = null;
         for (int i = 1; i <= 4; i++) {
