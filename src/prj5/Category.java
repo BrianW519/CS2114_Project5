@@ -6,7 +6,6 @@ package prj5;
 /**
  * @author davidd14
  * @version 2019.11.13
- *
  */
 public class Category {
 
@@ -87,5 +86,47 @@ public class Category {
         else {
             chosen.dislike();
         }
+    }
+
+
+    /**
+     * returns the string form of the category
+     * 
+     * @return
+     *         returns the string in the following form:
+     *         "First Stats toString()
+     *         Second Stats toString()
+     *         Third Stats toString()
+     *         Fourth Stats toString()"
+     */
+    @Override
+    public String toString() {
+        return stats1.toString() + "\n" + stats2.toString() + "\n" + stats3
+            .toString() + "\n" + stats4.toString();
+    }
+
+
+    /**
+     * returns true if the object is equals to this object
+     * 
+     * @param obj
+     *            the other object to compare to
+     * @return
+     *         returns true if obj is the same class and has equal Stats objects
+     */
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() == this.getClass()) {
+            Category other = (Category)obj;
+            return (other.getStats(1).equals(stats1) && other.getStats(2)
+                .equals(stats2) && other.getStats(3).equals(stats3) && other
+                    .getStats(4).equals(stats4));
+        }
+        return false;
     }
 }

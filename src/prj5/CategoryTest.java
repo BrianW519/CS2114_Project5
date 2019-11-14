@@ -3,6 +3,7 @@
  */
 package prj5;
 
+// imports
 import student.TestCase;
 
 /**
@@ -11,9 +12,13 @@ import student.TestCase;
  */
 public class CategoryTest extends TestCase {
 
+    // fields
     private Category hobbies;
 
 
+    /**
+     * sets up the test class
+     */
     public void setUp() {
         hobbies = new Category(SubEnum.MUSIC, SubEnum.ART, SubEnum.SPORTS,
             SubEnum.READ);
@@ -44,6 +49,9 @@ public class CategoryTest extends TestCase {
     }
 
 
+    /**
+     * tests updateData()
+     */
     public void testUpdateData() {
         assertEquals(0, hobbies.getStats(1).getLikes());
         assertEquals(0, hobbies.getStats(1).getDislikes());
@@ -61,6 +69,43 @@ public class CategoryTest extends TestCase {
             thrown = e;
         }
         assertTrue(thrown instanceof IllegalArgumentException);
+    }
+
+
+    /**
+     * tests toString()
+     */
+    public void testToString() {
+        assertTrue(hobbies.toString().equals(
+            "MUSIC students: Likes: 0, Dislikes: 0, Total Heard: 0.\n"
+                + "ART students: Likes: 0, Dislikes: 0, Total Heard: 0.\n"
+                + "SPORTS students: Likes: 0, Dislikes: 0, Total Heard: 0.\n"
+                + "READ students: Likes: 0, Dislikes: 0, Total Heard: 0."));
+    }
+
+
+    /**
+     * tests equals()
+     */
+    public void testEquals() {
+        Category diff1 = new Category(SubEnum.NORTHEAST_USA, SubEnum.ART,
+            SubEnum.SPORTS, SubEnum.READ);
+        Category diff2 = new Category(SubEnum.MUSIC, SubEnum.NORTHEAST_USA,
+            SubEnum.SPORTS, SubEnum.READ);
+        Category diff3 = new Category(SubEnum.MUSIC, SubEnum.ART,
+            SubEnum.NORTHEAST_USA, SubEnum.READ);
+        Category diff4 = new Category(SubEnum.MUSIC, SubEnum.ART,
+            SubEnum.SPORTS, SubEnum.NORTHEAST_USA);
+        Category nullCategory = null;
+        Category same = new Category(SubEnum.MUSIC, SubEnum.ART, SubEnum.SPORTS,
+            SubEnum.READ);
+        assertTrue(hobbies.equals(hobbies));
+        assertFalse(hobbies.equals(nullCategory));
+        assertFalse(hobbies.equals(diff1));
+        assertFalse(hobbies.equals(diff2));
+        assertFalse(hobbies.equals(diff3));
+        assertFalse(hobbies.equals(diff4));
+        assertTrue(hobbies.equals(same));
     }
 
 }

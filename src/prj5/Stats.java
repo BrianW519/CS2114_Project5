@@ -94,4 +94,45 @@ public class Stats {
         return sub;
     }
 
+
+    /**
+     * returns true if object is another stats object with equivalent
+     * subcategory, likes, dislikes, and heardSong
+     * 
+     * @param obj
+     *            the other object to compare to
+     * @return
+     *         returns true if the other object is another stats object with
+     *         equivalent subcategory, likes, dislikes, and heardSong
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() == this.getClass()) {
+            Stats other = (Stats)obj;
+            return (sub.equals(other.getSubCategory()) && likes == other
+                .getLikes() && dislikes == other.getDislikes());
+        }
+        return false;
+    }
+
+
+    /**
+     * returns Stats as a String
+     * 
+     * @return
+     *         returns as a string in the following for "(SubCatergory) student:
+     *         Likes: (likes), Dislikes (dislikes), Total Heard: (heardSong)."
+     */
+    @Override
+    public String toString() {
+        return sub.toString() + " students: Likes: " + likes + ", Dislikes: "
+            + dislikes + ", Total Heard: " + heardSong + ".";
+    }
+
 }

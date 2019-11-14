@@ -22,6 +22,7 @@ public class StatsTest extends TestCase {
         stats = new Stats(SubEnum.MUSIC);
     }
 
+
     /**
      * tests like()
      */
@@ -34,6 +35,7 @@ public class StatsTest extends TestCase {
         assertEquals(1, stats.getHeardSong());
         assertEquals(0, stats.getDislikes());
     }
+
 
     /**
      * tests dislike()
@@ -48,6 +50,7 @@ public class StatsTest extends TestCase {
         assertEquals(1, stats.getDislikes());
     }
 
+
     /**
      * tests getLikes()
      */
@@ -57,6 +60,7 @@ public class StatsTest extends TestCase {
         assertEquals(1, stats.getLikes());
     }
 
+
     /**
      * tests getDislikes()
      */
@@ -65,6 +69,7 @@ public class StatsTest extends TestCase {
         stats.dislike();
         assertEquals(1, stats.getDislikes());
     }
+
 
     /**
      * tests getHeardSong()
@@ -77,11 +82,49 @@ public class StatsTest extends TestCase {
         assertEquals(3, stats.getHeardSong());
     }
 
+
     /**
      * tests getSubCategory()
      */
     public void testGetSubCategory() {
         assertTrue(stats.getSubCategory().equals(SubEnum.MUSIC));
+    }
+
+    /**
+     * tests equals()
+     */
+    public void testEquals() {
+        assertTrue(stats.equals(stats));
+        Stats nullStats = null;
+        assertFalse(stats.equals(nullStats));
+        Stats diff1 = new Stats(SubEnum.MUSIC);
+        Stats diff2 = new Stats(SubEnum.MUSIC);
+        Stats diff3 = new Stats(SubEnum.ART);
+        Stats same = new Stats(SubEnum.MUSIC);
+        stats.like();
+        stats.dislike();
+        diff1.like();
+        diff2.dislike();
+        diff3.like();
+        diff3.dislike();
+        same.dislike();
+        same.like();
+        assertFalse(stats.equals(diff1));
+        assertFalse(stats.equals(diff2));
+        assertFalse(stats.equals(diff3));
+        assertTrue(stats.equals(same));
+    }
+
+    /**
+     * tests toString()
+     */
+    public void testToString() {
+        stats.like();
+        stats.like();
+        stats.like();
+        stats.dislike();
+        assertTrue(stats.toString().equals(
+            "MUSIC students: Likes: 3, Dislikes: 1, Total Heard: 4."));
     }
 
 }
