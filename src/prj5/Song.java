@@ -8,7 +8,7 @@ package prj5;
  * @author David
  * @version Nov 13, 2019
  */
-public class Song {
+public class Song implements Comparable<Song>{
 
     // fields
     private String title;
@@ -120,6 +120,13 @@ public class Song {
      */
     public String getArtistName() {
         return artistName;
+    }
+
+
+    @Override
+    public int compareTo(Song o) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 
 }
