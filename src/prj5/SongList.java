@@ -1,5 +1,6 @@
 package prj5;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -11,7 +12,7 @@ import java.util.NoSuchElementException;
  * @author David
  * @version Nov 13, 2019
  */
-public class SongList<T extends Comparable<T>> implements Iterable<T> {
+public class SongList<T extends Comparator<T>> implements Iterable<T> {
     /**
      * Iterator method creates Iterator object
      *
@@ -20,6 +21,8 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new SongListIterator<T>();
     }
+
+
     /**
      * This represents a node in a doubly linked list
      *
@@ -31,16 +34,21 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         private Node<T> previous;
         private T data;
 
+
         /**
          * Creates a new node with the provided data
+         * 
          * @param dataOfNode
          *            the data to be place in the node
          */
         public Node(T dataOfNode) {
             data = dataOfNode;
         }
+
+
         /**
          * sets the next node
+         * 
          * @param nextNode
          *            the node after this one
          */
@@ -48,8 +56,10 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
             next = nextNode;
         }
 
+
         /**
-         * Sets the previous node 
+         * Sets the previous node
+         * 
          * @param n
          *            the node before this one
          */
@@ -57,30 +67,37 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
             previous = previousNode;
         }
 
+
         /**
          * fetches the next node
+         * 
          * @return the next node
          */
         public Node<T> next() {
             return next;
         }
 
+
         /**
          * fetches the previous node
-         * @return the node previous 
+         * 
+         * @return the node previous
          */
         public Node<T> previous() {
             return previous;
         }
 
+
         /**
          * Gets the data in this node
+         * 
          * @return the data in the node
          */
         public T getData() {
             return data;
         }
     }
+
     private int size;
     /**
      * is a sentinel node and thus null
@@ -90,6 +107,8 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
      * is a sentinel node and thus null
      */
     private Node<T> tail;
+
+
     /**
      * Create a new SongList object.
      */
@@ -100,20 +119,28 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         tail.setPrevious(head);
         size = 0;
     }
+
+
     /**
      * checks if the linked list size is zero
+     * 
      * @return true if the array is empty
      */
     public boolean isEmpty() {
         return size == 0;
     }
+
+
     /**
      * Gets the number of elements in the linked list
+     * 
      * @return the number of elements
      */
     public int getSize() {
         return size;
     }
+
+
     /**
      * clears all values in the list
      */
@@ -124,6 +151,8 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         tail.setPrevious(head);
         size = 0;
     }
+
+
     /**
      * Gets the object at the given position
      *
@@ -134,7 +163,7 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
     public T getEntry(int index) {
         return getNodeAtIndex(index).getData();
     }
-    
+
 
     /**
      * Adds a element to the end of the list
@@ -145,6 +174,8 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
     public void add(T frontNode) {
         add(getSize(), frontNode);
     }
+
+
     /**
      * Adds the object to a given position in the list
      *
@@ -163,7 +194,7 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         Node<T> nodeAfter;
         if (index == size) {
             nodeAfter = tail;
-        } 
+        }
         else {
             nodeAfter = getNodeAtIndex(index);
         }
@@ -177,6 +208,7 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
 
     }
 
+
     /**
      * gets the node at that index
      * 
@@ -185,15 +217,17 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
      */
     private Node<T> getNodeAtIndex(int index) {
         if (index < 0 || getSize() <= index) {
-            throw new IndexOutOfBoundsException("No element exists at " 
-                    + index);
+            throw new IndexOutOfBoundsException("No element exists at "
+                + index);
         }
-        Node<T> current = head.next(); 
+        Node<T> current = head.next();
         for (int i = 0; i < index; i++) {
             current = current.next();
         }
         return current;
     }
+
+
     /**
      * removes the node at that index
      *
@@ -209,8 +243,9 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         return true;
     }
 
+
     /**
-     * Removes the first object in the list that equals 
+     * Removes the first object in the list that equals
      * the object inputed
      *
      * @param anEntry
@@ -232,8 +267,10 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         return false;
     }
 
+
     /**
      * Returns a string representation of the list If a list
+     * 
      * @return a string representing the list
      */
     @Override
@@ -245,8 +282,8 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
                 T element = currNode.getData();
                 builder.append(element.toString());
                 if (currNode.next != tail) {
-                    builder.append(", ");
-                }  
+                    builder.append(" | ");
+                }
                 currNode = currNode.next();
             }
         }
@@ -254,35 +291,46 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         builder.append("]");
         return builder.toString();
     }
-    public void insertionSort() {
+
+
+    public void insertionSort(Comparator<T> compareType) {
         Node<T> current = head.next.next;
-        while(current != null) {
-            if(current.previous.data != null && current.data != null) {
-            int compair = current.getData().compareTo(current.previous.getData());
-                while(compair < 0) {
+        while (current != null) {
+            if (current.previous.data != null && current.data != null) {
+                Comparator<T> comparator = compareType;
+
+                int compare = comparator.compare(current.getData(),
+                    current.previous.getData());
+
+                while (compare < 0) {
                     T data = current.data;
                     Node<T> insertNode = new Node<T>(data);
                     insertNode.next = current.previous;
                     insertNode.previous = current.previous.previous;
-                    current.previous.previous.next = insertNode; 
-                    current.previous.previous = insertNode;        
+                    current.previous.previous.next = insertNode;
+                    current.previous.previous = insertNode;
                     current.previous().setNext(current.next());
                     current.next().setPrevious(current.previous());
                     current = insertNode;
-                    if(current.previous.data != null && current.data != null) {
-                        compair = current.getData().compareTo(current.previous.getData());
+                    if (current.previous.data != null && current.data != null) {
+                        compare = comparator.compare(current.getData(),
+                            current.previous.getData());
                     }
                     else {
-                        compair = 0;
+                        compare = 0;
                     }
-                } 
+                }
             }
             current = current.next;
         }
     }
+
+
     private class SongListIterator<T> implements Iterator<T> {
         private Node<T> current;
         private boolean seenNext;
+
+
         /**
          * Creates a new DLListIterator
          */
@@ -291,6 +339,8 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
             seenNext = false;
             current = (Node<T>)head;
         }
+
+
         /**
          * Checks if there are more elements in the list
          *
@@ -300,9 +350,10 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
         public boolean hasNext() {
             return current.next.data != null;
         }
-        
+
+
         /**
-         *Gets the next value in the list
+         * Gets the next value in the list
          *
          * @return the next value
          * @throws NoSuchElementException
@@ -320,12 +371,13 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
             }
         }
 
+
         /**
          * Removes the last object returned with next() from the list
          *
          * @throws IllegalStateException
          *             if next has not been called yet
-         *        and  if the element has already been removed
+         *             and if the element has already been removed
          */
         @Override
         public void remove() {
@@ -335,9 +387,9 @@ public class SongList<T extends Comparable<T>> implements Iterable<T> {
             else {
                 size--;
                 seenNext = false;
-                current.previous.setNext(current.next); 
+                current.previous.setNext(current.next);
                 current.next.setPrevious(current.previous);
-            }      
+            }
         }
     }
 }

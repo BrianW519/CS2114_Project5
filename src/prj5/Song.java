@@ -1,5 +1,7 @@
 package prj5;
 
+import java.util.Comparator;
+
 /**
  * Description
  *
@@ -8,7 +10,7 @@ package prj5;
  * @author David
  * @version Nov 13, 2019
  */
-public class Song implements Comparable<Song>{
+public class Song implements Comparator<Song> {
 
     // fields
     private String title;
@@ -68,10 +70,12 @@ public class Song implements Comparable<Song>{
         this.region.updateData(region, likes);
     }
 
+
     /**
-     * gets the category object 
+     * gets the category object
+     * 
      * @param category
-     *          the category associated with the required stats 
+     *            the category associated with the required stats
      * @return
      */
     public Category getCategory(CategoryEnum category) {
@@ -86,47 +90,109 @@ public class Song implements Comparable<Song>{
         }
     }
 
+
     /**
      * gets the song genre
+     * 
      * @return
-     *          returns the songs genre
+     *         returns the songs genre
      */
     public String getGenre() {
         return genre;
     }
 
+
     /**
      * gets the songs release year
+     * 
      * @return
-     *          returns the songs release year
+     *         returns the songs release year
      */
     public int getDate() {
         return date;
     }
 
+
     /**
      * gets the songs title
+     * 
      * @return
-     *          returns the songs title
+     *         returns the songs title
      */
     public String getTitle() {
         return title;
     }
 
+
     /**
      * gets the songs artist
+     * 
      * @return
-     *          returns the songs artist
+     *         returns the songs artist
      */
     public String getArtistName() {
         return artistName;
     }
 
 
+    /**
+     * Converts the songs data into a string
+     * 
+     * @return a string of the songs data
+     */
+    public String toString() {
+        return title + ", " + artistName + ", " + date + ", " + genre;
+
+    }
+
+    public static final Comparator<Song> compareByTitle =
+        new Comparator<Song>() {
+            public int compare(Song o1, Song o2) {
+                return o1.getTitle().compareTo(o2.getTitle());
+            }
+        };
+
+    public static final Comparator<Song> compareByGenre =
+        new Comparator<Song>() {
+            public int compare(Song o1, Song o2) {
+                return o1.getGenre().compareTo(o2.getGenre());
+            }
+        };
+
+    public static final Comparator<Song> compareByArtistName =
+        new Comparator<Song>() {
+            public int compare(Song o1, Song o2) {
+                return o1.getArtistName().compareTo(o2.getArtistName());
+            }
+        };
+
+    public static final Comparator<Song> compareByDate =
+        new Comparator<Song>() {
+            public int compare(Song o1, Song o2) {
+                if (o1.getDate() < o2.getDate()) {
+                    return -1;
+                }
+                else if (o1.getDate() > o2.getDate()) {
+                    return 1;
+                }
+                return 0;
+            }
+        };
+
+
+    /**
+     * Default compare by the songs title
+     * 
+     * @param o1
+     *            the first song
+     * @param o2
+     *            the second song
+     * @return -1 if the first songs title is alphabetically lower than the
+     *         second, 1 if its higher, and 0 if they are the same title
+     */
     @Override
-    public int compareTo(Song o) {
-        // TODO Auto-generated method stub
-        return 0;
+    public int compare(Song o1, Song o2) {
+        return o1.getTitle().compareTo(o2.getTitle());
     }
 
 }
