@@ -20,7 +20,11 @@ public class Input {
     public static void main(String[] args)
         throws ParseException,
         FileNotFoundException {
-
+        if (args.length != 2) {
+            new DataDisplay();
+            return;
+        }
+        
         FileReader reader;
         try {
             reader = new FileReader(args[0], args[1]);
