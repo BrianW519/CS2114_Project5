@@ -300,6 +300,7 @@ public class SongList<T extends Comparator<T>> implements Iterable<T> {
      *            the thing to compare by to sort them
      */
     public void insertionSort(Comparator<T> compareType) {
+        
         Node<T> current = head.next.next;
         while (current != null) {
             if (current.previous.data != null && current.data != null) {
