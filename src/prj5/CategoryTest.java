@@ -25,6 +25,9 @@ public class CategoryTest extends TestCase {
     }
 
 
+    /**
+     * Test the getStats method
+     */
     public void testGetStats() {
         assertTrue(hobbies.getStats(1).getSubCategory().equals(SubEnum.MUSIC));
         assertTrue(hobbies.getStats(2).getSubCategory().equals(SubEnum.ART));

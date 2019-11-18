@@ -51,11 +51,11 @@ public class Song implements Comparator<Song> {
     /**
      * updates the info associated with a song review
      * 
-     * @param hobby
+     * @param hobbyType
      *            reviewee's hobby
-     * @param major
+     * @param majorType
      *            reviewee's major
-     * @param region
+     * @param regionType
      *            reviewee's region
      * @param likes
      *            greater than 0 for a like, 0 or less for a dislike
