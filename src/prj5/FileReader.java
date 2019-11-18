@@ -139,18 +139,17 @@ public class FileReader {
                     throw new ParseException(
                         "Person did not indicate their hobby");
             }
-            
 
             Iterator<Song> iter = songs.iterator();
-            
+
             for (int i = 5; i < data.length; i += 2) {
                 if (data[i].equals("Yes")) {
-                    if (data[i+1].equals("Yes")) {
-                    iter.next().updateData(hobby, major, region, 1);
+                    if (data[i + 1].equals("Yes")) {
+                        iter.next().updateData(hobby, major, region, 1);
                     }
-                    if (data[i+1].equals("No")) {
+                    if (data[i + 1].equals("No")) {
                         iter.next().updateData(hobby, major, region, 0);
-                        }
+                    }
                 }
                 else {
                     iter.next();

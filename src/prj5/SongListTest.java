@@ -183,13 +183,14 @@ public class SongListTest extends TestCase {
      * tests toString
      */
     public void testToString() {
-        
+
         assertEquals("[]", songList.toString());
         songList.add(song1);
         assertEquals(songList.toString(), "[one, styx, 1, rock]");
         songList.add(song2);
-        assertEquals(songList.toString(), "[one, styx, 1, rock | two, beedles, 2, rock]");
-        
+        assertEquals(songList.toString(),
+            "[one, styx, 1, rock | two, beedles, 2, rock]");
+
     }
 
 

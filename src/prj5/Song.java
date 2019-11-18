@@ -61,13 +61,13 @@ public class Song implements Comparator<Song> {
      *            greater than 0 for a like, 0 or less for a dislike
      */
     public void updateData(
-        SubEnum hobby,
-        SubEnum major,
-        SubEnum region,
+        SubEnum hobbyType,
+        SubEnum majorType,
+        SubEnum regionType,
         int likes) {
-        this.hobby.updateData(hobby, likes);
-        this.major.updateData(major, likes);
-        this.region.updateData(region, likes);
+        this.hobby.updateData(hobbyType, likes);
+        this.major.updateData(majorType, likes);
+        this.region.updateData(regionType, likes);
     }
 
 
@@ -76,7 +76,7 @@ public class Song implements Comparator<Song> {
      * 
      * @param category
      *            the category associated with the required stats
-     * @return
+     * @return the category
      */
     public Category getCategory(CategoryEnum category) {
         if (category.equals(CategoryEnum.HOBBY)) {
@@ -145,29 +145,77 @@ public class Song implements Comparator<Song> {
 
     }
 
+    /**
+     * A new comparator to compare songs by their title
+     */
     public static final Comparator<Song> compareByTitle =
         new Comparator<Song>() {
+            /**
+             * Compare song 1 and song 2 by their title
+             * 
+             * @param o1
+             *            the first song
+             * @param o2
+             *            the second song
+             * @return an int based on the songs data comparison
+             */
             public int compare(Song o1, Song o2) {
                 return o1.getTitle().compareTo(o2.getTitle());
             }
         };
 
+    /**
+     * A new comparator to compare songs by their genre
+     */
     public static final Comparator<Song> compareByGenre =
         new Comparator<Song>() {
+            /**
+             * Compare song 1 and song 2 by their Genre
+             * 
+             * @param o1
+             *            the first song
+             * @param o2
+             *            the second song
+             * @return an int based on the songs data comparison
+             */
             public int compare(Song o1, Song o2) {
                 return o1.getGenre().compareTo(o2.getGenre());
             }
         };
 
+    /**
+     * A new comparator to compare songs by their artist name
+     */
     public static final Comparator<Song> compareByArtistName =
         new Comparator<Song>() {
+            /**
+             * Compare song 1 and song 2 by their artist
+             * 
+             * @param o1
+             *            the first song
+             * @param o2
+             *            the second song
+             * @return an int based on the songs data comparison
+             */
             public int compare(Song o1, Song o2) {
                 return o1.getArtistName().compareTo(o2.getArtistName());
             }
         };
 
+    /**
+     * A new comparator to compare songs by their date
+     */
     public static final Comparator<Song> compareByDate =
         new Comparator<Song>() {
+            /**
+             * Compare song 1 and song 2 by their date
+             * 
+             * @param o1
+             *            the first song
+             * @param o2
+             *            the second song
+             * @return an int based on the songs data comparison
+             */
             public int compare(Song o1, Song o2) {
                 if (o1.getDate() < o2.getDate()) {
                     return -1;

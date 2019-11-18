@@ -2,7 +2,6 @@ package prj5;
 
 import java.io.FileNotFoundException;
 import java.util.Iterator;
-import java.util.Comparator;
 import bsh.ParseException;
 
 // Virginia Tech Honor Code Pledge:
@@ -41,7 +40,8 @@ public class FileReaderTest extends student.TestCase {
         Iterator<Song> iter = songs.iterator();
         assertEquals("Creep", iter.next().getTitle());
         String str =
-            "[Creep, Radiohead, 1992, Alternative | My Heart Will Go On, Celine Dion, 1997, Pop | All of Me, John Legend, 2013, R&B]";
+            "[Creep, Radiohead, 1992, Alternative | My Heart Will Go On, "
+                + "Celine Dion, 1997, Pop | All of Me, John Legend, 2013, R&B]";
         assertEquals(str, songs.toString());
     }
 
