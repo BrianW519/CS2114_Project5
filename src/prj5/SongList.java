@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
  * @author Dave
  * @author David
  * @version Nov 13, 2019
- * @param T
+ * @param <T>
  *            the data type to be used
  */
 public class SongList<T extends Comparator<T>> implements Iterable<T> {
@@ -62,7 +62,7 @@ public class SongList<T extends Comparator<T>> implements Iterable<T> {
         /**
          * Sets the previous node
          * 
-         * @param n
+         * @param previousNode
          *            the node before this one
          */
         public void setPrevious(Node<T> previousNode) {

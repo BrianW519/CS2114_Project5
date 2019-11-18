@@ -27,13 +27,20 @@ public class SongTest extends TestCase {
      * tests updateData()
      */
     public void testUpdateData() {
-        assertEquals(0, song.getCategory(CategoryEnum.HOBBY).getStats(1).getLikes());
-        assertEquals(0, song.getCategory(CategoryEnum.MAJOR).getStats(1).getLikes());
-        assertEquals(0, song.getCategory(CategoryEnum.REGION).getStats(1).getLikes());
-        song.updateData(SubEnum.MUSIC, SubEnum.COMPUTER_SCIENCE, SubEnum.NORTHEAST_USA, 1);
-        assertEquals(1, song.getCategory(CategoryEnum.HOBBY).getStats(1).getLikes());
-        assertEquals(1, song.getCategory(CategoryEnum.MAJOR).getStats(1).getLikes());
-        assertEquals(1, song.getCategory(CategoryEnum.REGION).getStats(1).getLikes());
+        assertEquals(0, song.getCategory(CategoryEnum.HOBBY).getStats(1)
+            .getLikes());
+        assertEquals(0, song.getCategory(CategoryEnum.MAJOR).getStats(1)
+            .getLikes());
+        assertEquals(0, song.getCategory(CategoryEnum.REGION).getStats(1)
+            .getLikes());
+        song.updateData(SubEnum.MUSIC, SubEnum.COMPUTER_SCIENCE,
+            SubEnum.NORTHEAST_USA, 1);
+        assertEquals(1, song.getCategory(CategoryEnum.HOBBY).getStats(1)
+            .getLikes());
+        assertEquals(1, song.getCategory(CategoryEnum.MAJOR).getStats(1)
+            .getLikes());
+        assertEquals(1, song.getCategory(CategoryEnum.REGION).getStats(1)
+            .getLikes());
     }
 
 
