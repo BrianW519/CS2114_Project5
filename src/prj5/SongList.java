@@ -293,6 +293,12 @@ public class SongList<T extends Comparator<T>> implements Iterable<T> {
     }
 
 
+    /**
+     * Sorts all the songs by the parameter that is passed
+     * 
+     * @param compareType
+     *            the thing to compare by to sort them
+     */
     public void insertionSort(Comparator<T> compareType) {
         Node<T> current = head.next.next;
         while (current != null) {

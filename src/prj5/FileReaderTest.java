@@ -21,30 +21,46 @@ public class FileReaderTest extends student.TestCase {
 
     private FileReader fileReader;
 
+
+    /**
+     * Sets up the variable before each test
+     */
     public void setUp() throws ParseException, FileNotFoundException {
         fileReader = new FileReader(
-            "IntermediateTestFiles/SongList2018Intro.csv", "IntermediateTestFiles/MusicSurveyData2018Intro.csv");
+            "IntermediateTestFiles/SongList2018Intro.csv",
+            "IntermediateTestFiles/MusicSurveyData2018Intro.csv");
     }
-    
+
+
+    /**
+     * Tests to make sure the method works as expected
+     */
     public void testReadSongFile() {
         SongList<Song> songs = fileReader.getSongList();
         songs.insertionSort(Song.compareByDate);
         Iterator<Song> iter = songs.iterator();
         assertEquals("Creep", iter.next().getTitle());
-        String str = "[Creep, Radiohead, 1992, Alternative | My Heart Will Go On, Celine Dion, 1997, Pop | All of Me, John Legend, 2013, R&B]";
+        String str =
+            "[Creep, Radiohead, 1992, Alternative | My Heart Will Go On, Celine Dion, 1997, Pop | All of Me, John Legend, 2013, R&B]";
         assertEquals(str, songs.toString());
     }
-    
+
+
+    /**
+     * Tests to make sure the method works as expected
+     */
     public void testReadInputFile() {
         SongList<Song> songs = fileReader.getSongList();
-        
+
         songs.insertionSort(Song.compareByDate);
         Iterator<Song> iter = songs.iterator();
         iter.next();
         iter.next();
         Song song = iter.next();
-        assertEquals(1, song.getCategory(CategoryEnum.MAJOR).getStats(3).getLikes());
-        assertEquals(0, song.getCategory(CategoryEnum.MAJOR).getStats(1).getLikes());
-        
+        assertEquals(1, song.getCategory(CategoryEnum.MAJOR).getStats(3)
+            .getLikes());
+        assertEquals(0, song.getCategory(CategoryEnum.MAJOR).getStats(1)
+            .getLikes());
+
     }
 }
