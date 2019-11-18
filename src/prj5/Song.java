@@ -148,7 +148,7 @@ public class Song implements Comparator<Song> {
     /**
      * A new comparator to compare songs by their title
      */
-    public static final Comparator<Song> compareByTitle =
+    public static final Comparator<Song> COMPARE_BY_TITLE =
         new Comparator<Song>() {
             /**
              * Compare song 1 and song 2 by their title
@@ -167,7 +167,7 @@ public class Song implements Comparator<Song> {
     /**
      * A new comparator to compare songs by their genre
      */
-    public static final Comparator<Song> compareByGenre =
+    public static final Comparator<Song> COMPARE_BY_GENRE =
         new Comparator<Song>() {
             /**
              * Compare song 1 and song 2 by their Genre
@@ -186,7 +186,7 @@ public class Song implements Comparator<Song> {
     /**
      * A new comparator to compare songs by their artist name
      */
-    public static final Comparator<Song> compareByArtistName =
+    public static final Comparator<Song> COMPARE_BY_ARTIST =
         new Comparator<Song>() {
             /**
              * Compare song 1 and song 2 by their artist
@@ -205,7 +205,7 @@ public class Song implements Comparator<Song> {
     /**
      * A new comparator to compare songs by their date
      */
-    public static final Comparator<Song> compareByDate =
+    public static final Comparator<Song> COMPARE_BY_DATE =
         new Comparator<Song>() {
             /**
              * Compare song 1 and song 2 by their date

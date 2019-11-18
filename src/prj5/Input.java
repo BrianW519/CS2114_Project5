@@ -25,7 +25,7 @@ public class Input {
         try {
             reader = new FileReader(args[0], args[1]);
             SongList<Song> currentSongs = reader.getSongList();
-            currentSongs.insertionSort(Song.compareByGenre);
+            currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
             for (int i = 0; i < currentSongs.getSize(); i++) {
                 Song current = currentSongs.getEntry(i);
                 System.out.println("\n" + "Song Title: " + current.getTitle()
@@ -47,7 +47,7 @@ public class Input {
                             .getCategory(CategoryEnum.HOBBY).getStats(4)
                             .getLikes() + "\n");
             }
-            currentSongs.insertionSort(Song.compareByTitle);
+            currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
             for (int i = 0; i < currentSongs.getSize(); i++) {
                 Song current = currentSongs.getEntry(i);
                 System.out.println("\n" + "Song Title: " + current.getTitle()

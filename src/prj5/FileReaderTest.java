@@ -36,7 +36,7 @@ public class FileReaderTest extends student.TestCase {
      */
     public void testReadSongFile() {
         SongList<Song> songs = fileReader.getSongList();
-        songs.insertionSort(Song.compareByDate);
+        songs.insertionSort(Song.COMPARE_BY_DATE);
         Iterator<Song> iter = songs.iterator();
         assertEquals("Creep", iter.next().getTitle());
         String str =
@@ -52,7 +52,7 @@ public class FileReaderTest extends student.TestCase {
     public void testReadInputFile() {
         SongList<Song> songs = fileReader.getSongList();
 
-        songs.insertionSort(Song.compareByDate);
+        songs.insertionSort(Song.COMPARE_BY_DATE);
         Iterator<Song> iter = songs.iterator();
         iter.next();
         iter.next();

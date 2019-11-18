@@ -230,7 +230,7 @@ public class SongListTest extends TestCase {
         songList.add(song1);
         songList.add(song2);
         songList.add(song3);
-        songList.insertionSort(Song.compareByTitle);
+        songList.insertionSort(Song.COMPARE_BY_TITLE);
         assertEquals(song3, songList.getEntry(1));
     }
 
