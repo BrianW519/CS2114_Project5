@@ -12,212 +12,230 @@ import student.TestCase;
  */
 
 public class SongListTest extends TestCase {
-   private SongList<String> list;
-   /**
-    * sets up the tests
-    */
-   @Override
-   public void setUp() {
-       list = new SongList<String>();
-   }
+    private SongList<String> list;
+    private SongList<Song> songList;
+    private Song song1;
+    private Song song2;
+    private Song song3;
 
-   /**
-    * tests RemoveIndex
-    */
-   public void testRemoveIndex() {
-       list.add("A");
-       list.add("B");
-       assertTrue(list.remove(1));
-       assertEquals(list.getSize(), 1);
-       list.add("B");
-       assertTrue(list.remove(1));
-       assertEquals(list.getSize(), 1);
-       Exception exception = null;
-       try {
-           list.remove(500);
-       } 
-       catch (Exception e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-       exception = null;
-       try {
-           list.remove(-500);
-       } 
-       catch (Exception e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-   }
 
-   /**
-    * tests Add
-    */
-   public void testAdd() {
-       assertEquals(0, list.getSize());
-       list.add("B");
-       assertEquals(1, list.getSize());
-       list.add("C");
-       assertEquals("C", list.getEntry(1));
-       Exception exception = null;
-       try {
-           list.add(null);
-       } 
-       catch (Exception e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-       list.clear();
-       list.add("A");
-       exception = null;
-       try {
-           list.add(2, "B");
-       } 
-       catch (Exception e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-       exception = null;
-       try {
-           list.add(-1, "B");
-       } 
-       catch (Exception e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-   }
+    /**
+     * sets up the tests
+     */
+    @Override
+    public void setUp() {
+        song1 = new Song("one", "styx", "rock", 1);
+        song2 = new Song("two", "beedles", "rock", 2);
+        song3 = new Song("three", "perry", "conser", 3);
+        songList = new SongList<Song>();
+        list = new SongList<String>();
+    }
 
-   /**
-    * tests AddIndex
-    */
-   public void testAddIndex() {
-       list.add("B");
-       list.add(0, "A");
-       assertEquals("B", list.getEntry(1));
-       list.add(2, "W");
-       assertEquals("W", list.getEntry(2));
-       Exception exception = null;
-       try {
-           list.add(0, null);
-       } 
-       catch (Exception e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-   }
-   /**
-    * tests Remove
-    */
-   public void testRemove() {
-       assertFalse(list.remove(null));
-       list.add("A");
-       list.add("B");
-       assertTrue( list.remove("A"));
-       assertEquals( "B", list.getEntry(0));
-       assertEquals( 1, list.getSize());
-       list.add("C");
-       assertTrue(list.remove("C"));
-       assertEquals("B", list.getEntry(0));
-   }
 
-   /**
-    * tests get
-    */
-   public void testGet() {
-       list.add("A");
-       list.add("B");
-       assertEquals(list.getEntry(1), "B");
-       Exception exception = null;
-       try {
-           list.getEntry(-30);
-       } 
-       catch (Exception e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-       exception = null;
-       list.add("A");
-       try {
-           list.getEntry(30);
-       } 
-       catch (IndexOutOfBoundsException e) {
-           exception = e;
-       }
-       assertNotNull(exception);
-   }
+    /**
+     * tests RemoveIndex
+     */
+    public void testRemoveIndex() {
+        // assertTrue(songList.remove(3));
+        songList.add(song1);
+        songList.add(song2);
+        assertTrue(songList.remove(1));
+        assertEquals(songList.getSize(), 1);
+        songList.add(song3);
+        assertTrue(songList.remove(1));
+        assertEquals(songList.getSize(), 1);
+        Exception exception = null;
+        try {
+            songList.remove(500);
+        }
+        catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+        exception = null;
+        try {
+            songList.remove(-500);
+        }
+        catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+    }
 
-   /**
-    * tests isEmpty
-    */
-   public void testIsEmpty() {
-       assertTrue( list.isEmpty());
-       list.add("A");
-       assertFalse(list.isEmpty());
-   }
 
-   /**
-    * tests clear
-    */
-   public void testClear() {
-       list.add("A");
-       list.clear();
-       assertEquals(0, list.getSize());
-   }
+    /**
+     * tests Add
+     */
+    public void testAdd() {
+        assertEquals(0, songList.getSize());
+        songList.add(song1);
+        assertEquals(1, songList.getSize());
+        songList.add(song3);
+        assertEquals(song3, songList.getEntry(1));
+        Exception exception = null;
+        try {
+            songList.add(null);
+        }
+        catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+        songList.clear();
+        songList.add(song2);
+        exception = null;
+        try {
+            songList.add(2, song3);
+        }
+        catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+        exception = null;
+        try {
+            songList.add(-1, song3);
+        }
+        catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+    }
 
-   /**
-    * tests toString
-    */
-   public void testToString() {
-       assertEquals("[]",
-               list.toString());
-       list.add("A");
-       assertEquals("[A]",
-               list.toString());
-       list.add("B");
-       assertEquals("[A, B]",
-               list.toString());
-   }
-   /**
-    * test Itorator
-    */
-   public void testItorator() {
-       SongList<String> inventory = new SongList<String>();
-       Iterator<String> iter = inventory.iterator();
-       Exception ex = null;
-       try {
-           iter.next();
-       } 
-       catch (Exception e) {
-           ex = e;
-       }
-       assertNotNull(ex);
-       ex = null;
-       try {
-           iter.remove();
-       } 
-       catch (Exception e) {
-           ex = e;
-       }
-       assertNotNull(ex);
-       assertFalse(iter.hasNext());   
-       inventory.add("A");
-       assertEquals(iter.next(), "A");
-       iter.remove();
-   }
-   /**
-    * test InsertionSort
-    */
-   public void testInsertionSort() {
-       list.add("D");
-       list.add("E");
-       list.add("C");
-       list.add("C");
-       list.add("B");
-       list.add("A");
-       assertEquals(list.toString(), "[D, E, C, C, B, A]");
-       list.insertionSort();
-       assertEquals(list.toString(), "[A, B, C, C, D, E]");
-   }
+
+    /**
+     * tests AddIndex
+     */
+    public void testAddIndex() {
+        songList.add(song1);
+        songList.add(0, song2);
+        assertEquals(song1, songList.getEntry(1));
+        songList.add(2, song3);
+        assertEquals(song3, songList.getEntry(2));
+        Exception exception = null;
+        try {
+            songList.add(0, null);
+        }
+        catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+    }
+
+
+    /**
+     * tests Remove
+     */
+    public void testRemove() {
+        assertFalse(songList.remove(null));
+        songList.add(song1);
+        songList.add(song2);
+        songList.remove(0);
+        assertEquals(song2, songList.getEntry(0));
+        songList.remove(song2);
+        assertTrue(songList.isEmpty());
+    }
+
+
+    /**
+     * tests get
+     */
+    public void testGet() {
+        songList.add(song1);
+        songList.add(song2);
+        assertEquals(songList.getEntry(1), song2);
+        Exception exception = null;
+        try {
+            songList.getEntry(-30);
+        }
+        catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+        exception = null;
+        try {
+            songList.getEntry(30);
+        }
+        catch (IndexOutOfBoundsException e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+    }
+
+
+    /**
+     * tests isEmpty
+     */
+    public void testIsEmpty() {
+        assertTrue(songList.isEmpty());
+        songList.add(song1);
+        assertFalse(songList.isEmpty());
+    }
+
+
+    /**
+     * tests clear
+     */
+    public void testClear() {
+        songList.add(song1);
+        songList.clear();
+        assertEquals(0, songList.getSize());
+    }
+
+
+    /**
+     * tests toString
+     */
+    public void testToString() {
+
+        assertEquals("[]", list.toString());
+        list.add("A");
+        assertEquals("[A]", list.toString());
+        list.add("B");
+        assertEquals("[A, B]", list.toString());
+    }
+
+
+    /**
+     * test Itorator
+     */
+    public void testItorator() {
+        SongList<String> inventory = new SongList<String>();
+        Iterator<String> iter = inventory.iterator();
+        Exception ex = null;
+        try {
+            iter.next();
+        }
+        catch (Exception e) {
+            ex = e;
+        }
+        assertNotNull(ex);
+        ex = null;
+        try {
+            iter.remove();
+        }
+        catch (Exception e) {
+            ex = e;
+        }
+        assertNotNull(ex);
+        assertFalse(iter.hasNext());
+        inventory.add("A");
+        assertEquals(iter.next(), "A");
+        iter.remove();
+    }
+
+
+    /**
+     * test InsertionSort
+     */
+    public void testInsertionSort() {
+        list.add("D");
+        list.add("E");
+        list.add("C");
+        list.add("C");
+        list.add("B");
+        list.add("A");
+        assertEquals(list.toString(), "[D, E, C, C, B, A]");
+        list.insertionSort();
+        assertEquals(list.toString(), "[A, B, C, C, D, E]");
+    }
 
 }
-
