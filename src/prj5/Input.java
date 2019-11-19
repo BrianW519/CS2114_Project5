@@ -16,8 +16,8 @@ public class Input {
             Song current = currentSong.getEntry(i);
             System.out.println("\n" + "Song Title: " + current.getTitle() + "\n"
                 + "Song Artist: " + current.getArtistName() + "\n"
-                + "Song Genre:" + current.getGenre() + "\n" + "Song Year:"
-                + current.getDate() + "\n" + "Heard\n" + "reading: " + current
+                + "Song Genre: " + current.getGenre() + "\n" + "Song Year: "
+                + current.getDate() + "\n" + "Heard\n" + "reading:" + current
                     .getCategory(CategoryEnum.HOBBY).getStats(4).getHeardSong()
                 + " " + "art:" + current.getCategory(CategoryEnum.HOBBY)
                     .getStats(2).getHeardSong() + " " + "sports:" + current
@@ -40,19 +40,14 @@ public class Input {
      * @throws FileNotFoundException
      * @throws ParseException
      */
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws FileNotFoundException {
 
-            FileReader reader = new FileReader(args[1],
-                args[0]);
-            SongList<Song> currentSongs = reader.getSongList();
-            currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
-            printer(currentSongs);
-            currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
-            printer(currentSongs);
-        }
-        catch (Exception e) {
-        }
+        FileReader reader = new FileReader(args[0], args[1]);
+        SongList<Song> currentSongs = reader.getSongList();
+        currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
+        printer(currentSongs);
+        currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
+        printer(currentSongs);
 
     }
 }

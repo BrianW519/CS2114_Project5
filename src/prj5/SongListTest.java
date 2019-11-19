@@ -2,7 +2,6 @@ package prj5;
 
 import java.util.Iterator;
 import student.TestCase;
-import sun.print.PlatformPrinterJobProxy;
 
 /**
  *

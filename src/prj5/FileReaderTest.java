@@ -24,9 +24,8 @@ public class FileReaderTest extends student.TestCase {
      * Sets up the variable before each test
      */
     public void setUp() throws FileNotFoundException {
-        fileReader = new FileReader(
-            "SongList2018Intro.csv",
-            "MusicSurveyData2018Intro.csv");
+        fileReader = new FileReader("MusicSurveyData2018Intro.csv",
+            "SongList2018Intro.csv");
     }
 
 

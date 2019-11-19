@@ -19,7 +19,7 @@ public class FileReader {
     private SongList<Song> songs;
 
 
-    public FileReader(String songFile, String inputFile)
+    public FileReader(String inputFile, String songFile)
         throws 
         FileNotFoundException {
         
