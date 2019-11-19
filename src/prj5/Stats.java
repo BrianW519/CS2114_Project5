@@ -111,8 +111,9 @@ public class Stats {
      * @return the % of people that heard the song
      */
     public int getHeardPercent() {
+        double totalPeople = notHeardSong + heardSong;
         if (notHeardSong + heardSong > 0) {
-            return (heardSong / (heardSong + notHeardSong)) * 100;
+            return (int)(((double)heardSong / totalPeople) * 100.00);
         }
         else {
             return 0;
@@ -126,8 +127,9 @@ public class Stats {
      * @return the % of people that liked the song
      */
     public int getLikePercent() {
+        double totalPeople = notHeardSong + heardSong;
         if (heardSong > 0) {
-            return (likes / (likes + dislikes)) * 100;
+            return (int)(((double)likes / totalPeople) * 100.00);
         }
         else {
             return 0;
