@@ -53,7 +53,7 @@ public class Input {
      * @throws ParseException
      */
     public static void main(String[] args) throws FileNotFoundException {
-
+        
         FileReader reader = new FileReader(args[0], args[1]);
         SongList<Song> currentSongs = reader.getSongList();
         currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
