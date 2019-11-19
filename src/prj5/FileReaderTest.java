@@ -45,21 +45,5 @@ public class FileReaderTest extends student.TestCase {
     }
 
 
-    /**
-     * Tests to make sure the method works as expected
-     */
-    public void testReadInputFile() {
-        SongList<Song> songs = fileReader.getSongList();
-
-        songs.insertionSort(Song.COMPARE_BY_DATE);
-        Iterator<Song> iter = songs.iterator();
-        iter.next();
-        iter.next();
-        Song song = iter.next();
-        assertEquals(1, song.getCategory(CategoryEnum.MAJOR).getStats(3)
-            .getLikes());
-        assertEquals(0, song.getCategory(CategoryEnum.MAJOR).getStats(1)
-            .getLikes());
-
-    }
 }
+  

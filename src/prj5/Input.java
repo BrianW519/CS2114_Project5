@@ -18,10 +18,10 @@ public class Input {
     private static void printer(SongList<Song> currentSong) {
         for (int i = 0; i < currentSong.getSize(); i++) {
             Song current = currentSong.getEntry(i);
-            System.out.println("\n" + "Song Title: " + current.getTitle() + "\n"
+            System.out.println("Song Title: " + current.getTitle() + "\n"
                 + "Song Artist: " + current.getArtistName() + "\n"
-                + "Song Genre:" + current.getGenre() + "\n" + "Song Year:"
-                + current.getDate() + "\n" + "Heard\n" + "reading: " + current
+                + "Song Genre: " + current.getGenre() + "\n" + "Song Year: "
+                + current.getDate() + "\n" + "Heard\n" + "reading:" + current
                     .getCategory(CategoryEnum.HOBBY).getStats(4).getHeardSong()
                 + " " + "art:" + current.getCategory(CategoryEnum.HOBBY)
                     .getStats(2).getHeardSong() + " " + "sports:" + current
@@ -35,6 +35,7 @@ public class Input {
                     .getStats(4).getLikes() + " " + "music:" + current
                         .getCategory(CategoryEnum.HOBBY).getStats(4)
                         .getLikes());
+        System.out.println();
         }
     }
 
