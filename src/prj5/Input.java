@@ -11,7 +11,11 @@ import bsh.ParseException;
  * @version 2019.11.17
  */
 public class Input {
-    public static void printer(SongList<Song> currentSong) {
+    /**
+     * prints the list
+     * @param currentSong the current songlist
+     */
+    private static void printer(SongList<Song> currentSong) {
         for (int i = 0; i < currentSong.getSize(); i++) {
             Song current = currentSong.getEntry(i);
             System.out.println("\n" + "Song Title: " + current.getTitle() + "\n"
@@ -41,9 +45,13 @@ public class Input {
      * @throws ParseException
      */
     public static void main(String[] args) {
+        if(args.length != 2) {
+            return;
+        }
         try {
 
-            FileReader reader = new FileReader(args[1],
+            FileReader reader = new FileReader(
+                args[1],
                 args[0]);
             SongList<Song> currentSongs = reader.getSongList();
             currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
