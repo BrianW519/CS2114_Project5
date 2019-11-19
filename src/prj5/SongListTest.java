@@ -233,45 +233,5 @@ public class SongListTest extends TestCase {
         songList.insertionSort(Song.COMPARE_BY_TITLE);
         assertEquals(song3, songList.getEntry(1));
     }
-    public void testPrint() {
-        
-        try {
-            
-            FileReader reader = new FileReader(
-                "SongList2018Intro.csv",
-                "MusicSurveyData2018Intro.csv");
-            SongList<Song> currentSongs = reader.getSongList();
-            currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
-            printer(currentSongs);
-            currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
-            printer(currentSongs);
-        }
-        catch (Exception e) {
-            // TODO: handle exception
-        }
-        
-    }
-    public void printer(SongList<Song> currentSong) {
-        for (int i = 0; i < currentSong.getSize(); i++) {
-            Song current = currentSong.getEntry(i);
-            System.out.println("\n" + "Song Title: " + current.getTitle()
-                + "\n" + "Song Artist: " + current.getArtistName() + "\n"
-                + "Song Genre:" + current.getGenre() + "\n" + "Song Year:"
-                + current.getDate() + "\n" + "Heard\n" + "reading: "
-                + current.getCategory(CategoryEnum.HOBBY).getStats(4)
-                    .getHeardSong() + " " + "art:" + current.getCategory(
-                        CategoryEnum.HOBBY).getStats(2).getHeardSong() + " "
-                + "sports:" + current.getCategory(CategoryEnum.HOBBY)
-                    .getStats(3).getHeardSong() + " " + "music:" + current
-                        .getCategory(CategoryEnum.HOBBY).getStats(1)
-                        .getHeardSong() + "\n" + "Likes\n" + "reading:"
-                + current.getCategory(CategoryEnum.HOBBY).getStats(4)
-                    .getLikes() + " " + "art:" + current.getCategory(
-                        CategoryEnum.HOBBY).getStats(4).getLikes() + " "
-                + "sports:" + current.getCategory(CategoryEnum.HOBBY)
-                    .getStats(4).getLikes() + " " + "music:" + current
-                        .getCategory(CategoryEnum.HOBBY).getStats(4)
-                        .getLikes() );
-        }
-    }
+
 }
