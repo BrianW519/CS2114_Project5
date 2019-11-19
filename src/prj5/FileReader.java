@@ -20,9 +20,9 @@ public class FileReader {
 
 
     public FileReader(String songFile, String inputFile)
-        throws ParseException,
+        throws 
         FileNotFoundException {
-
+        
         readSongFile(songFile);
         readInputFile(inputFile);
     }
@@ -34,7 +34,7 @@ public class FileReader {
 
 
     private void readSongFile(String fileName)
-        throws ParseException,
+        throws 
         FileNotFoundException {
         songs = new SongList<Song>();
 
@@ -53,8 +53,9 @@ public class FileReader {
             String[] data = line.split(",");
 
             if (data.length < 4) {
-                throw new ParseException(
-                    "Not all data for the song is present");
+                throw new FileNotFoundException();
+                //throw new ParseException(
+                //    "Not all data for the song is present");
             }
             title = data[0];
             artist = data[1];
@@ -70,8 +71,8 @@ public class FileReader {
 
 
     private void readInputFile(String fileName)
-        throws FileNotFoundException,
-        ParseException {
+        throws FileNotFoundException
+         {
 
         SubEnum hobby;
         SubEnum major;
@@ -100,8 +101,9 @@ public class FileReader {
                     major = SubEnum.OTHER;
                     break;
                 default:
-                    throw new ParseException(
-                        "Person did not indicate their major");
+                    throw new FileNotFoundException();
+                    //ParseException(
+                        //"Person did not indicate their major");
             }
 
             switch (data[3]) {
@@ -118,8 +120,9 @@ public class FileReader {
                     region = SubEnum.USA_OTHER;
                     break;
                 default:
-                    throw new ParseException(
-                        "Person did not indicate their region");
+                    throw new FileNotFoundException();
+                    //throw new ParseException(
+                        //"Person did not indicate their region");
             }
 
             switch (data[4]) {
@@ -136,8 +139,9 @@ public class FileReader {
                     hobby = SubEnum.ART;
                     break;
                 default:
-                    throw new ParseException(
-                        "Person did not indicate their hobby");
+                    throw new FileNotFoundException();
+                    //throw new ParseException(
+                        //"Person did not indicate their hobby");
             }
             
 
