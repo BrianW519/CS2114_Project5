@@ -126,8 +126,8 @@ public class Stats {
      * @return the % of people that liked the song
      */
     public int getLikePercent() {
-        if (notHeardSong + heardSong > 0) {
-            return (likes / (heardSong + notHeardSong)) * 100;
+        if (heardSong > 0) {
+            return (likes / (likes + dislikes)) * 100;
         }
         else {
             return 0;

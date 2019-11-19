@@ -61,7 +61,7 @@ public class Input {
         currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
         printer(currentSongs);
         
-        DataDisplay display = new DataDisplay();
+       // DataDisplay display = new DataDisplay();
 
     }
 }
