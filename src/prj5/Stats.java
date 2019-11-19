@@ -15,6 +15,7 @@ public class Stats {
     private int likes;
     private int dislikes;
     private int heardSong;
+    private int notHeardSong;
 
 
     /**
@@ -27,6 +28,7 @@ public class Stats {
         likes = 0;
         dislikes = 0;
         heardSong = 0;
+        notHeardSong = 0;
         this.sub = sub;
     }
 
@@ -48,6 +50,14 @@ public class Stats {
     public void dislike() {
         dislikes++;
         heardSong++;
+    }
+
+
+    /**
+     * increments the amount of people that havent heard the song
+     */
+    public void notHeard() {
+        notHeardSong++;
     }
 
 
@@ -81,6 +91,47 @@ public class Stats {
      */
     public int getHeardSong() {
         return heardSong;
+    }
+
+
+    /**
+     * returns the number of people who have not heard the song
+     * 
+     * @return
+     *         returns the number of people who have not heard the song
+     */
+    public int getNotHeardSong() {
+        return notHeardSong;
+    }
+
+
+    /**
+     * Returns the percent of people who have heard it
+     * 
+     * @return the % of people that heard the song
+     */
+    public int getHeardPercent() {
+        if (notHeardSong + heardSong > 0) {
+            return (heardSong / (heardSong + notHeardSong)) * 100;
+        }
+        else {
+            return 0;
+        }
+    }
+
+
+    /**
+     * Returns the percent of people who have liked it
+     * 
+     * @return the % of people that liked the song
+     */
+    public int getLikePercent() {
+        if (notHeardSong + heardSong > 0) {
+            return (likes / (heardSong + notHeardSong)) * 100;
+        }
+        else {
+            return 0;
+        }
     }
 
 

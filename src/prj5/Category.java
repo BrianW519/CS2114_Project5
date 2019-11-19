@@ -67,8 +67,9 @@ public class Category {
      * @param sub
      *            the subcategory to update
      * @param j
-     *            a value greater than 0 indicating a like and anything else
-     *            indicating a dislike
+     *            a value greater than 0 indicating a like and anything equal to
+     *            or less than -1 indicating a dislike, and a 0 indicating not
+     *            heard
      */
     public void updateData(SubEnum sub, int j) {
         Stats chosen = null;
@@ -83,8 +84,11 @@ public class Category {
         if (j > 0) {
             chosen.like();
         }
-        else {
+        else if (j < 0) {
             chosen.dislike();
+        }
+        else if (j == 0) {
+            chosen.notHeard();
         }
     }
 
