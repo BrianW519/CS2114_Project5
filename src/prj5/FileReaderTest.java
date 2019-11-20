@@ -2,6 +2,7 @@ package prj5;
 
 import java.io.FileNotFoundException;
 import java.util.Iterator;
+import bsh.ParseException;
 
 // Virginia Tech Honor Code Pledge:
 //
@@ -24,8 +25,13 @@ public class FileReaderTest extends student.TestCase {
      * Sets up the variable before each test
      */
     public void setUp() throws FileNotFoundException {
-        fileReader = new FileReader("MusicSurveyData2018Intro.csv",
-            "SongList2018Intro.csv");
+        try {
+            fileReader = new FileReader("MusicSurveyData2018Intro.csv",
+                "SongList2018Intro.csv");
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 

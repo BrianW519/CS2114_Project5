@@ -130,6 +130,18 @@ public class SongListTest extends TestCase {
         assertEquals(song2, songList.getEntry(0));
         songList.remove(song2);
         assertTrue(songList.isEmpty());
+        songList.add(song1);
+        songList.add(song2);
+        songList.add(song1);
+        songList.add(song2);
+        songList.add(song1);
+        songList.add(song2);
+        songList.add(song1);
+        songList.add(song2);
+        songList.remove(song2);
+        songList.remove(song2);
+        assertEquals(songList.getSize(), 6);
+        
     }
 
 
@@ -227,8 +239,11 @@ public class SongListTest extends TestCase {
      * test InsertionSort
      */
     public void testInsertionSort() {
+        songList.insertionSort(Song.COMPARE_BY_TITLE);
         songList.add(song1);
+        songList.insertionSort(Song.COMPARE_BY_TITLE);
         songList.add(song2);
+        songList.insertionSort(Song.COMPARE_BY_TITLE);
         songList.add(song3);
         songList.insertionSort(Song.COMPARE_BY_TITLE);
         assertEquals(song3, songList.getEntry(1));

@@ -81,7 +81,10 @@ public class Category {
         if (chosen == null) {
             throw new IllegalArgumentException();
         }
-        if (j > 0) {
+        if (j == 100) {
+            chosen.heardButNoOpinion();
+        }
+        else if (j > 0) {
             chosen.like();
         }
         else if (j < 0) {
@@ -91,8 +94,6 @@ public class Category {
             chosen.notHeard();
         }
     }
-
-
     /**
      * returns the string form of the category
      * 

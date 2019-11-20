@@ -72,6 +72,8 @@ public class CategoryTest extends TestCase {
             thrown = e;
         }
         assertTrue(thrown instanceof IllegalArgumentException);
+        hobbies.updateData(SubEnum.MUSIC, 100);
+        assertEquals(1, hobbies.getStats(1).getLikes());
     }
 
 
@@ -90,6 +92,7 @@ public class CategoryTest extends TestCase {
     /**
      * tests equals()
      */
+    @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
         Category diff1 = new Category(SubEnum.NORTHEAST_USA, SubEnum.ART,
             SubEnum.SPORTS, SubEnum.READ);
@@ -109,6 +112,8 @@ public class CategoryTest extends TestCase {
         assertFalse(hobbies.equals(diff3));
         assertFalse(hobbies.equals(diff4));
         assertTrue(hobbies.equals(same));
+        String someString = "Yang Gang";
+        assertFalse(hobbies.equals(someString));
     }
 
 }

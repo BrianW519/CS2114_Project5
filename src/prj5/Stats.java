@@ -52,6 +52,14 @@ public class Stats {
         heardSong++;
     }
 
+    /**
+     * if the person heard the song
+     * but has no opinion
+     */
+    public void heardButNoOpinion() {
+        heardSong++;
+    }
+
 
     /**
      * increments the amount of people that havent heard the song
@@ -111,12 +119,12 @@ public class Stats {
      * @return the % of people that heard the song
      */
     public int getHeardPercent() {
-        double totalPeople = notHeardSong + heardSong;
-        if (notHeardSong + heardSong > 0) {
-            return (int)(((double)heardSong / totalPeople) * 100.00);
+        double totalPeople = (double)notHeardSong + (double)heardSong;
+        if (totalPeople == 0) {
+            return 0;
         }
         else {
-            return 0;
+            return (int)(((double)heardSong / totalPeople) * 100.00);
         }
     }
 

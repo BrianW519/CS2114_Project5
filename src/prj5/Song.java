@@ -69,8 +69,6 @@ public class Song implements Comparator<Song> {
         this.major.updateData(majorType, likes);
         this.region.updateData(regionType, likes);
     }
-
-
     /**
      * gets the category object
      * 

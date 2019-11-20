@@ -1,6 +1,5 @@
-/**
- * 
- */
+/*
+
 package prj5;
 
 import java.awt.Color;
@@ -14,7 +13,7 @@ import CS2114.WindowSide;
  * @author davidd14
  * @version 2019.11.18
  *
- */
+ 
 public class DataDisplay {
 
     private static final int GLYPH_BAR_SPACING = 0;
@@ -26,7 +25,7 @@ public class DataDisplay {
 
     /**
      * The constructor
-     */
+     
     public DataDisplay() {
 
         Window window;
@@ -204,3 +203,4 @@ public class DataDisplay {
     }
 
 }
+*/

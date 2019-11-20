@@ -90,6 +90,7 @@ public class StatsTest extends TestCase {
         assertTrue(stats.getSubCategory().equals(SubEnum.MUSIC));
     }
 
+
     /**
      * tests equals()
      */
@@ -113,7 +114,10 @@ public class StatsTest extends TestCase {
         assertFalse(stats.equals(diff2));
         assertFalse(stats.equals(diff3));
         assertTrue(stats.equals(same));
+        String someString = "Griffith did nothing wrong";
+        assertFalse(stats.equals(someString));
     }
+
 
     /**
      * tests toString()
@@ -125,6 +129,27 @@ public class StatsTest extends TestCase {
         stats.dislike();
         assertTrue(stats.toString().equals(
             "MUSIC students: Likes: 3, Dislikes: 1, Total Heard: 4."));
+    }
+
+
+    /**
+     * tests compare 
+     */
+    public void testCompare() {
+        stats.heardButNoOpinion();
+        assertEquals(stats.getHeardSong(), 1, 0.1);
+    }
+    /**
+     * tests both percent methods
+     */
+    public void testPercent() {
+        assertEquals(stats.getHeardPercent(), 0);
+        assertEquals(stats.getLikePercent(), 0);
+        stats.like();
+        assertEquals(stats.getHeardPercent(), 100);
+        assertEquals(stats.getLikePercent(), 100);
+        
+        
     }
 
 }

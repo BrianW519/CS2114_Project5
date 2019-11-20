@@ -20,7 +20,7 @@ public class FileReader {
 
 
     public FileReader(String inputFile, String songFile)
-        throws FileNotFoundException {
+        throws FileNotFoundException, ParseException {
 
         readSongFile(songFile);
         readInputFile(inputFile);
@@ -32,7 +32,7 @@ public class FileReader {
     }
 
 
-    private void readSongFile(String fileName) throws FileNotFoundException {
+    private void readSongFile(String fileName) throws ParseException, FileNotFoundException {
         songs = new SongList<Song>();
 
         String title;
@@ -50,9 +50,8 @@ public class FileReader {
             String[] data = line.split(",");
 
             if (data.length < 4) {
-                throw new FileNotFoundException();
-                // throw new ParseException(
-                // "Not all data for the song is present");
+                 throw new ParseException(
+                 "Not all data for the song is present");
             }
             title = data[0];
             artist = data[1];
@@ -67,7 +66,7 @@ public class FileReader {
     }
 
 
-    private void readInputFile(String fileName) throws FileNotFoundException {
+    private void readInputFile(String fileName) throws FileNotFoundException, ParseException {
 
         SubEnum hobby;
         SubEnum major;
@@ -96,9 +95,8 @@ public class FileReader {
                     major = SubEnum.OTHER;
                     break;
                 default:
-                    throw new FileNotFoundException();
-                    // ParseException(
-                    // "Person did not indicate their major");
+                    throw new ParseException(
+                        "Person did not indicate their hobby");
             }
 
             switch (data[3]) {
@@ -115,9 +113,8 @@ public class FileReader {
                     region = SubEnum.USA_OTHER;
                     break;
                 default:
-                    throw new FileNotFoundException();
-                    // throw new ParseException(
-                    // "Person did not indicate their region");
+                    throw new ParseException(
+                        "Person did not indicate their hobby");
             }
 
             switch (data[4]) {
@@ -134,20 +131,18 @@ public class FileReader {
                     hobby = SubEnum.ART;
                     break;
                 default:
-                    throw new FileNotFoundException();
-                    // throw new ParseException(
-                    // "Person did not indicate their hobby");
+                    throw new ParseException(
+                        "Person did not indicate their hobby");
             }
 
             Iterator<Song> iter = songs.iterator();
-
             for (int i = 5; i < data.length; i += 2) {
                 if (i + 1 < data.length) {
                     if (data[i].equals("Yes")) {
                         if (data[i + 1].equals("Yes")) {
                             iter.next().updateData(hobby, major, region, 1);
                         }
-                        if (data[i + 1].equals("No")) {
+                        else if (data[i + 1].equals("No")) {
                             iter.next().updateData(hobby, major, region, -1);
                         }
                     }
@@ -158,7 +153,14 @@ public class FileReader {
                         iter.next();
                     }
                 }
-
+                else if(i == data.length - 1) {
+                    if (data[i].equals("No")) {
+                        iter.next().updateData(hobby, major, region, 0);
+                    }
+                    else if(data[i].equals("Yes")) {
+                        iter.next().updateData(hobby, major, region, 100);
+                    }
+                }
             }
         }
 
