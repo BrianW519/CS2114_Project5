@@ -35,7 +35,6 @@ public class GUIDataDisplay {
 
     // functional fields
     private SongList<Song> songList;
-    private int displayIndex;
     private CategoryEnum currentCategory;
     private int CurrentMusicIndex = 0;;
     private String sortType;
@@ -49,7 +48,6 @@ public class GUIDataDisplay {
 
         // default display properties
         this.songList = inputList;
-        displayIndex = 1;
         currentCategory = CategoryEnum.HOBBY;
         songList.insertionSort(Song.COMPARE_BY_TITLE);
         sortType = "title";
@@ -86,7 +84,6 @@ public class GUIDataDisplay {
         quit = new Button("Quit");
         quit.onClick(this, "clickedQuit");
         window.addButton(quit, WindowSide.SOUTH);
-        displayGlyphs();
         // update window graphics to default
         updateDisplay();
 
@@ -210,7 +207,7 @@ public class GUIDataDisplay {
             window.addShape(songName);
             window.addShape(extraData);
             CurrentXOffSet = DEFAULT_BAR_LENGTH * 2 + CurrentXOffSet
-                + DEFAULT_OFFSET + 40;
+                + DEFAULT_OFFSET;
             if (CurrentXOffSet + DEFAULT_BAR_LENGTH * 2 > window
                 .getGraphPanelWidth() - LEGEND_BUFFER) {
                 currentYOffSet = currentYOffSet + (DEFAULT_OFFSET - 85) * 2;
