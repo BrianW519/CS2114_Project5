@@ -36,9 +36,12 @@ public class Input {
                 .getStats(3).getLikePercent();
             int artLikePercent = current.getCategory(CategoryEnum.HOBBY)
                 .getStats(2).getLikePercent();
-            /*System.out.println(current.getCategory(CategoryEnum.HOBBY)
-                .getStats(2).getHeardSong() + "HEARD STUFF " + current.getCategory(CategoryEnum.HOBBY)
-            .getStats(2).getNotHeardSong() + " NO HEARD SONG");*/
+            /*
+             * System.out.println(current.getCategory(CategoryEnum.HOBBY)
+             * .getStats(2).getHeardSong() + "HEARD STUFF " +
+             * current.getCategory(CategoryEnum.HOBBY)
+             * .getStats(2).getNotHeardSong() + " NO HEARD SONG");
+             */
             System.out.println("reading:" + readingHeardPercent + " " + "art:"
                 + artHeardPercent + " " + "sports:" + sportsHeardPercent + " "
                 + "music:" + musicHeardPercent + "\n" + "Likes\n" + "reading:"
@@ -55,21 +58,32 @@ public class Input {
      * @throws ParseException
      */
     public static void main(String[] args) throws FileNotFoundException {
-        
-        FileReader reader = null;
-        try {
-            reader = new FileReader(args[0], args[1]);
+        //TO DO 
+        //Needs functionality for default case (testing purposes) and args inputs
+        if (args.length != 2) {
+            FileReader reader = null;
+            try {
+                reader = new FileReader(args[0], args[1]);
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+            new GUIDataDisplay(reader.getSongList());
         }
-        catch (ParseException e) {
-            e.printStackTrace();
+        else {
+            FileReader reader = null;
+            try {
+                reader = new FileReader(args[0], args[1]);
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+            SongList<Song> currentSongs = reader.getSongList();
+            currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
+            printer(currentSongs);
+            currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
+            printer(currentSongs);
         }
-        SongList<Song> currentSongs = reader.getSongList();
-        currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
-        printer(currentSongs);
-        currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
-        printer(currentSongs);
-        
-       // DataDisplay display = new DataDisplay();
 
     }
 }

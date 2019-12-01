@@ -1,6 +1,5 @@
-/*
-
 package prj5;
+
 
 import java.awt.Color;
 import CS2114.Button;
@@ -12,33 +11,85 @@ import CS2114.WindowSide;
 /**
  * @author davidd14
  * @version 2019.11.18
- *
+ */
  
-public class DataDisplay {
+public class GUIDataDisplay {
 
     private static final int GLYPH_BAR_SPACING = 0;
     private static final int GLYPH_BAR_HEIGHT = 10;
     private static final int DEFAULT_BAR_LENGTH = 40;
     private static final int GLYPH_TEXT_SPACING = 5;
     private static final int LEGEND_BUFFER = 8;
+    
+    //button fields
+    private Window window;
+    private Button prev;
+    private Button sortByArtist;
+    private Button sortByTitle;
+    private Button sortByYear;
+    private Button sortByGenre;
+    private Button next;
+    private Button repHobby;
+    private Button repMajor;
+    private Button repRegion;
+    private Button quit;
+    
+    //functional fields
+    private SongList<Song> songList;
+    private int displayIndex;
+    private CategoryEnum currentCategory;
 
 
     /**
      * The constructor
+     */
      
-    public DataDisplay() {
+    public GUIDataDisplay(SongList<Song> inputList) {
+        
+        //default display properties
+        this.songList = inputList;
+        displayIndex = 1;
+        currentCategory = CategoryEnum.HOBBY;
+        inputList.insertionSort(Song.COMPARE_BY_TITLE);
 
-        Window window;
-        Button prev;
-        Button sortByArtist;
-        Button sortByTitle;
-        Button sortByYear;
-        Button sortByGenre;
-        Button next;
-        Button repHobby;
-        Button repMajor;
-        Button repRegion;
-        Button quit;
+        //window
+        window = new Window();
+
+        // adding tons of buttons
+        prev = new Button("<-- Prev ");
+        prev.onClick(this, "clickedPrev");
+        window.addButton(prev, WindowSide.NORTH);
+        sortByArtist = new Button("Sort by Artist Name");
+        sortByArtist.onClick(this, "clickedSortByArtist");
+        window.addButton(sortByArtist, WindowSide.NORTH);
+        sortByTitle = new Button("Sort by Song Title");
+        sortByTitle.onClick(this, "clickedSortByTitle");
+        window.addButton(sortByTitle, WindowSide.NORTH);
+        sortByYear = new Button("Sort by Release Year");
+        sortByYear.onClick(this, "clickedSortByYear");
+        window.addButton(sortByYear, WindowSide.NORTH);
+        sortByGenre = new Button("Sort by Genre");
+        sortByGenre.onClick(this, "clickedSortByGenre");
+        window.addButton(sortByGenre, WindowSide.NORTH);
+        next = new Button("Next -->");
+        next.onClick(this, "clickedNext");
+        window.addButton(next, WindowSide.NORTH);
+        repHobby = new Button("Represent Hobby");
+        repHobby.onClick(this, "clickedRepHobby");
+        window.addButton(repHobby, WindowSide.SOUTH);
+        repMajor = new Button("Represent Major");
+        repMajor.onClick(this, "clickedRepMajor");
+        window.addButton(repMajor, WindowSide.SOUTH);
+        repRegion = new Button("Represent Region");
+        repRegion.onClick(this, "clickedRepRegion");
+        window.addButton(repRegion, WindowSide.SOUTH);
+        quit = new Button("Quit");
+        quit.onClick(this, "clickedQuit");
+        window.addButton(quit, WindowSide.SOUTH);
+        
+        //update window graphics to default
+        updateDisplay();
+        
         Shape pole;
         Shape bar1;
         Shape bar2;
@@ -49,31 +100,9 @@ public class DataDisplay {
         Shape bar7;
         Shape bar8;
 
-        window = new Window();
-
-        // adding tons of buttons
-        prev = new Button("<-- Prev ");
-        window.addButton(prev, WindowSide.NORTH);
-        sortByArtist = new Button("Sort by Artist Name");
-        window.addButton(sortByArtist, WindowSide.NORTH);
-        sortByTitle = new Button("Sort by Song Title");
-        window.addButton(sortByTitle, WindowSide.NORTH);
-        sortByYear = new Button("Sort by Release Year");
-        window.addButton(sortByYear, WindowSide.NORTH);
-        sortByGenre = new Button("Sort by Genre");
-        window.addButton(sortByGenre, WindowSide.NORTH);
-        next = new Button("Next -->");
-        window.addButton(next, WindowSide.NORTH);
-        repHobby = new Button("Represent Hobby");
-        window.addButton(repHobby, WindowSide.SOUTH);
-        repMajor = new Button("Represent Major");
-        window.addButton(repMajor, WindowSide.SOUTH);
-        repRegion = new Button("Represent Region");
-        window.addButton(repRegion, WindowSide.SOUTH);
-        quit = new Button("Quit");
-        window.addButton(quit, WindowSide.SOUTH);
-
         // sample glyph
+        //TO DO
+        //the sample glyph will not stay, keeping code for use in updating the display glyphs 
         pole = new Shape((window.getGraphPanelWidth() / 2) - (GLYPH_BAR_HEIGHT
             / 2), (window.getGraphPanelHeight() / 2) - (GLYPH_BAR_HEIGHT * 4
                 + GLYPH_BAR_SPACING * 3 / 2), GLYPH_BAR_HEIGHT, GLYPH_BAR_HEIGHT
@@ -123,6 +152,87 @@ public class DataDisplay {
         songArtist.setBackgroundColor(Color.WHITE);
         window.addShape(songName);
         window.addShape(songArtist);
+        
+
+    }
+    
+    public void clickedPrev(Button button) {
+        displayIndex -= 8;
+        updateDisplay();
+    }
+    
+    public void clickedSortByArtist(Button button) {
+        displayIndex = 0;
+        songList.insertionSort(Song.COMPARE_BY_ARTIST);
+        updateDisplay();
+    }
+    
+    public void clickedSortByTitle(Button button) {
+        displayIndex = 0;
+        songList.insertionSort(Song.COMPARE_BY_TITLE);
+        updateDisplay();
+    }   
+    
+    public void clickedSortByYear(Button button) {
+        displayIndex = 0;
+        songList.insertionSort(Song.COMPARE_BY_DATE);
+        updateDisplay();
+    }  
+    
+    public void clickedSortByGenre(Button button) {
+        displayIndex = 0;
+        songList.insertionSort(Song.COMPARE_BY_GENRE);
+        updateDisplay();
+    }  
+    
+    public void clickedNext(Button button) {
+        displayIndex += 8;
+        updateDisplay();
+    }  
+    
+    public void clickedRepHobby(Button button) {
+        displayIndex = 1;
+        currentCategory = CategoryEnum.HOBBY;
+        updateDisplay();
+    } 
+    
+    public void clickedRepMajor(Button button) {
+        displayIndex = 1;
+        currentCategory = CategoryEnum.MAJOR;
+        updateDisplay();
+    } 
+    
+    public void clickedRepRegion(Button button) {
+        displayIndex = 1;
+        currentCategory = CategoryEnum.REGION;
+        updateDisplay();
+    }
+    
+    public void clickedQuit(Button button) {
+        System.exit(0);
+    }
+    
+    private void updateDisplay() {
+        if (displayIndex == 1) {
+            prev.disable();
+        }
+        if (displayIndex + 8 > songList.getSize()) {
+            next.disable();
+        }
+        //updates the glyphs and legend
+        updateGlyphs();
+        updateLegend();
+    }
+    
+    private void updateGlyphs() {
+        //update glyphs to display the proper data 
+            //TO DO
+    }
+    
+    private void updateLegend() {
+        //TO DO 
+        //needs functionality to change text when the category changes
+        //DO NOT adjust the spacing, text Dave if the spacing is off
         TextShape legendTitle = new TextShape(0, 0, "Hobby Legend");
         TextShape legendHobby1 = new TextShape(0, 0, "Read");
         TextShape legendHobby2 = new TextShape(0, 0, "Art");
@@ -199,8 +309,7 @@ public class DataDisplay {
         window.addShape(legendHeard);
         window.addShape(legendLike);
         window.addShape(border);
-
     }
 
 }
-*/
+
