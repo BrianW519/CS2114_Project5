@@ -20,6 +20,7 @@ public class GUIDataDisplay {
     private static final int GLYPH_TEXT_SPACING = 5;
     private static final int LEGEND_BUFFER = 8;
     private static final int DEFAULT_OFFSET = 50;
+    private int currentPlace = 0;
     // button fields
     private Window window;
     private Button prev;
@@ -91,10 +92,14 @@ public class GUIDataDisplay {
 
 
     public void musicBars() {
+        
+        int MaxPerPage = 9;
+        int CurrentPlace = 0;
         int CurrentXOffSet = DEFAULT_OFFSET;
-        int currentYOffSet = (window.getGraphPanelHeight() / 2)
-            - (GLYPH_BAR_HEIGHT * 4 + GLYPH_BAR_SPACING * 3 / 2) - 70;
-        for (int i = 0; i < songList.getSize(); i++) {
+        int currentYOffSet = (window.getGraphPanelHeight() / 2) - (GLYPH_BAR_HEIGHT * 4
+            + GLYPH_BAR_SPACING * 3 / 2);
+        for( int i = 0 ;i < songList.getSize() &&  MaxPerPage != CurrentPlace; i++) {
+            CurrentPlace++;
             Song current = songList.getEntry(i);
             int readingHeardPercent = current.getCategory(CategoryEnum.HOBBY)
                 .getStats(4).getHeardPercent();
