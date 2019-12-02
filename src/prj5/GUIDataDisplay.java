@@ -1,8 +1,6 @@
 package prj5;
 
-
 import java.awt.Color;
-import com.sun.org.apache.bcel.internal.generic.GOTO;
 import CS2114.Button;
 import CS2114.Shape;
 import CS2114.TextShape;
@@ -13,7 +11,7 @@ import CS2114.WindowSide;
  * @author davidd14
  * @version 2019.11.18
  */
- 
+
 public class GUIDataDisplay {
 
     private static final int GLYPH_BAR_SPACING = 0;
@@ -22,7 +20,7 @@ public class GUIDataDisplay {
     private static final int GLYPH_TEXT_SPACING = 5;
     private static final int LEGEND_BUFFER = 8;
     private static final int DEFAULT_OFFSET = 50;
-    //button fields
+    // button fields
     private Window window;
     private Button prev;
     private Button sortByArtist;
@@ -34,8 +32,8 @@ public class GUIDataDisplay {
     private Button repMajor;
     private Button repRegion;
     private Button quit;
-    
-    //functional fields
+
+    // functional fields
     private SongList<Song> songList;
     private int displayIndex;
     private CategoryEnum currentCategory;
@@ -44,15 +42,15 @@ public class GUIDataDisplay {
     /**
      * The constructor
      */
-     
+
     public GUIDataDisplay(SongList<Song> inputList) {
-        
-        //default display properties
+
+        // default display properties
         this.songList = inputList;
         displayIndex = 1;
         currentCategory = CategoryEnum.HOBBY;
         songList.insertionSort(Song.COMPARE_BY_TITLE);
-        //window
+        // window
         window = new Window();
         // adding tons of buttons
         prev = new Button("<-- Prev ");
@@ -86,173 +84,196 @@ public class GUIDataDisplay {
         quit.onClick(this, "clickedQuit");
         window.addButton(quit, WindowSide.SOUTH);
         musicBars();
-        //update window graphics to default
+        // update window graphics to default
         updateDisplay();
-        
- 
-        
-        
+
     }
+
+
     public void musicBars() {
         int CurrentXOffSet = DEFAULT_OFFSET;
-        int currentYOffSet = (window.getGraphPanelHeight() / 2) - (GLYPH_BAR_HEIGHT * 4
-            + GLYPH_BAR_SPACING * 3 / 2);
-        for( int i = 0 ;i < songList.getSize() ; i++) {
-        Song current = songList.getEntry(i);
-        int readingHeardPercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(4).getHeardPercent();
-        int musicHeardPercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(1).getHeardPercent();
-        int sportsHeardPercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(3).getHeardPercent();
-        int artHeardPercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(2).getHeardPercent();
+        int currentYOffSet = (window.getGraphPanelHeight() / 2)
+            - (GLYPH_BAR_HEIGHT * 4 + GLYPH_BAR_SPACING * 3 / 2) - 70;
+        for (int i = 0; i < songList.getSize(); i++) {
+            Song current = songList.getEntry(i);
+            int readingHeardPercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(4).getHeardPercent();
+            int musicHeardPercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(1).getHeardPercent();
+            int sportsHeardPercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(3).getHeardPercent();
+            int artHeardPercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(2).getHeardPercent();
 
-        int readingLikePercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(4).getLikePercent();
-        int musicLikePercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(1).getLikePercent();
-        int sportsLikePercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(3).getLikePercent();
-        int artLikePercent = current.getCategory(CategoryEnum.HOBBY)
-            .getStats(2).getLikePercent();
-        Shape pole;
-        Shape bar1;
-        Shape bar2;
-        Shape bar3;
-        Shape bar4;
-        Shape bar5;
-        Shape bar6;
-        Shape bar7;
-        Shape bar8;
-        pole = new Shape(CurrentXOffSet,currentYOffSet , GLYPH_BAR_HEIGHT, GLYPH_BAR_HEIGHT
-                    * 4 + GLYPH_BAR_SPACING * 5, Color.BLACK);
-        window.addShape(pole);
-        //= new Shape(x, y, width, height, color)
-        // the amount of people who have heard it in READING
-        int thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)readingHeardPercent/100.0));
-        bar1 = new Shape(pole.getX() - thisLength, pole.getY() + 1
-            * GLYPH_BAR_SPACING + 0 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT, Color.MAGENTA);
-        // the amount of people who have heard it in ART
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)artHeardPercent/100.0));
-        bar2 = new Shape(pole.getX() - thisLength , pole.getY() + 2
-            * GLYPH_BAR_SPACING + 1 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT, Color.BLUE);
-        // the amount of people who have heard it in SPORTS 
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)sportsHeardPercent/100.0));
-        bar3 = new Shape(pole.getX() - thisLength, pole.getY() + 3
-            * GLYPH_BAR_SPACING + 2 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT);
-        // the amount of people who have heard it in MUSIC 
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)musicHeardPercent/100.0));
-        bar4 = new Shape(pole.getX() - thisLength, pole.getY() + 4
-            * GLYPH_BAR_SPACING + 3 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT, Color.GREEN);
-        window.addShape(bar1);
-        window.addShape(bar2);
-        window.addShape(bar3);
-        window.addShape(bar4);
-        // the amount of people who have Liked it in READING
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)readingLikePercent/100.0));
-        bar5 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 1
-            * GLYPH_BAR_SPACING + 0 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT, Color.MAGENTA);
-        // the amount of people who have Liked it in ART
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)artLikePercent/100.0));
-        bar6 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 2
-            * GLYPH_BAR_SPACING + 1 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT, Color.BLUE);
-        // the amount of people who have Liked it in SPORTS
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)sportsLikePercent/100.0));
-        bar7 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 3
-            * GLYPH_BAR_SPACING + 2 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT);
-        // the amount of people who have Liked it in MUSIC
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)musicLikePercent/100.0));
-        bar8 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 4
-            * GLYPH_BAR_SPACING + 3 * GLYPH_BAR_HEIGHT, thisLength,
-            GLYPH_BAR_HEIGHT, Color.GREEN);
-        window.addShape(bar5);
-        window.addShape(bar6);
-        window.addShape(bar7);
-        window.addShape(bar8);
-        TextShape songName = new TextShape(0, 0, songList.getEntry(i).getTitle());
-        TextShape songArtist = new TextShape(0, 0, songList.getEntry(i).getArtistName());
-        songName.moveTo(pole.getX() + (pole.getWidth() / 2) - (songName
-            .getWidth() / 2) , pole.getY() - songName.getHeight() - songArtist
-                .getHeight() - (GLYPH_TEXT_SPACING));
-        songArtist.moveTo(pole.getX() + (pole.getWidth() / 2) - (songArtist
-            .getWidth() / 2) , pole.getY() - songArtist.getHeight()
-                - (GLYPH_TEXT_SPACING));
-        songName.setBackgroundColor(Color.WHITE);
-        songArtist.setBackgroundColor(Color.WHITE);
-        window.addShape(songName);
-        window.addShape(songArtist);
-        CurrentXOffSet = DEFAULT_BAR_LENGTH * 2 + CurrentXOffSet + DEFAULT_OFFSET;
-        if(CurrentXOffSet + DEFAULT_BAR_LENGTH * 2 > window.getGraphPanelWidth() - LEGEND_BUFFER) {
-            currentYOffSet = currentYOffSet + DEFAULT_OFFSET * 2; 
-            CurrentXOffSet = DEFAULT_OFFSET;
+            int readingLikePercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(4).getLikePercent();
+            int musicLikePercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(1).getLikePercent();
+            int sportsLikePercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(3).getLikePercent();
+            int artLikePercent = current.getCategory(CategoryEnum.HOBBY)
+                .getStats(2).getLikePercent();
+            Shape pole;
+            Shape bar1;
+            Shape bar2;
+            Shape bar3;
+            Shape bar4;
+            Shape bar5;
+            Shape bar6;
+            Shape bar7;
+            Shape bar8;
+            pole = new Shape(CurrentXOffSet, currentYOffSet, GLYPH_BAR_HEIGHT,
+                GLYPH_BAR_HEIGHT * 4 + GLYPH_BAR_SPACING * 5, Color.BLACK);
+            window.addShape(pole);
+            // = new Shape(x, y, width, height, color)
+            // the amount of people who have heard it in READING
+            int thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)readingHeardPercent / 100.0));
+            bar1 = new Shape(pole.getX() - thisLength, pole.getY() + 1
+                * GLYPH_BAR_SPACING + 0 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT, Color.MAGENTA);
+            // the amount of people who have heard it in ART
+            thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)artHeardPercent / 100.0));
+            bar2 = new Shape(pole.getX() - thisLength, pole.getY() + 2
+                * GLYPH_BAR_SPACING + 1 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT, Color.BLUE);
+            // the amount of people who have heard it in SPORTS
+            thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)sportsHeardPercent / 100.0));
+            bar3 = new Shape(pole.getX() - thisLength, pole.getY() + 3
+                * GLYPH_BAR_SPACING + 2 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT);
+            // the amount of people who have heard it in MUSIC
+            thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)musicHeardPercent / 100.0));
+            bar4 = new Shape(pole.getX() - thisLength, pole.getY() + 4
+                * GLYPH_BAR_SPACING + 3 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT, Color.GREEN);
+            window.addShape(bar1);
+            window.addShape(bar2);
+            window.addShape(bar3);
+            window.addShape(bar4);
+            // the amount of people who have Liked it in READING
+            thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)readingLikePercent / 100.0));
+            bar5 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 1
+                * GLYPH_BAR_SPACING + 0 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT, Color.MAGENTA);
+            // the amount of people who have Liked it in ART
+            thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)artLikePercent / 100.0));
+            bar6 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 2
+                * GLYPH_BAR_SPACING + 1 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT, Color.BLUE);
+            // the amount of people who have Liked it in SPORTS
+            thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)sportsLikePercent / 100.0));
+            bar7 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 3
+                * GLYPH_BAR_SPACING + 2 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT);
+            // the amount of people who have Liked it in MUSIC
+            thisLength = (int)((double)DEFAULT_BAR_LENGTH
+                * ((double)musicLikePercent / 100.0));
+            bar8 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 4
+                * GLYPH_BAR_SPACING + 3 * GLYPH_BAR_HEIGHT, thisLength,
+                GLYPH_BAR_HEIGHT, Color.GREEN);
+            window.addShape(bar5);
+            window.addShape(bar6);
+            window.addShape(bar7);
+            window.addShape(bar8);
+            TextShape songName = new TextShape(0, 0, songList.getEntry(i)
+                .getTitle());
+            TextShape songArtist = new TextShape(0, 0, songList.getEntry(i)
+                .getArtistName());
+            songName.moveTo(pole.getX() + (pole.getWidth() / 2) - (songName
+                .getWidth() / 2), pole.getY() - songName.getHeight()
+                    - songArtist.getHeight() - (GLYPH_TEXT_SPACING));
+            songArtist.moveTo(pole.getX() + (pole.getWidth() / 2) - (songArtist
+                .getWidth() / 2), pole.getY() - songArtist.getHeight()
+                    - (GLYPH_TEXT_SPACING));
+            songName.setBackgroundColor(Color.WHITE);
+            songArtist.setBackgroundColor(Color.WHITE);
+            window.addShape(songName);
+            window.addShape(songArtist);
+            CurrentXOffSet = DEFAULT_BAR_LENGTH * 2 + CurrentXOffSet
+                + DEFAULT_OFFSET;
+            if (CurrentXOffSet + DEFAULT_BAR_LENGTH * 2 > window
+                .getGraphPanelWidth() - LEGEND_BUFFER) {
+                currentYOffSet = currentYOffSet + DEFAULT_OFFSET * 2;
+                CurrentXOffSet = DEFAULT_OFFSET;
+            }
+
         }
-
-       }
     }
+
+
     public void clickedPrev(Button button) {
         displayIndex -= 8;
         updateDisplay();
     }
-    
+
+
     public void clickedSortByArtist(Button button) {
         displayIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_ARTIST);
         updateDisplay();
     }
-    
+
+
     public void clickedSortByTitle(Button button) {
         displayIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_TITLE);
         updateDisplay();
-    }   
-    
+    }
+
+
     public void clickedSortByYear(Button button) {
         displayIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_DATE);
         updateDisplay();
-    }  
-    
+    }
+
+
     public void clickedSortByGenre(Button button) {
         displayIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_GENRE);
         updateDisplay();
-    }  
-    
+    }
+
+
     public void clickedNext(Button button) {
         displayIndex += 8;
         updateDisplay();
-    }  
-    
+    }
+
+
     public void clickedRepHobby(Button button) {
         displayIndex = 1;
         currentCategory = CategoryEnum.HOBBY;
         updateDisplay();
-    } 
-    
+    }
+
+
     public void clickedRepMajor(Button button) {
         displayIndex = 1;
         currentCategory = CategoryEnum.MAJOR;
         updateDisplay();
-    } 
-    
+    }
+
+
     public void clickedRepRegion(Button button) {
         displayIndex = 1;
         currentCategory = CategoryEnum.REGION;
         updateDisplay();
     }
-    
+
+
     public void clickedQuit(Button button) {
         System.exit(0);
     }
-    
+
+
     private void updateDisplay() {
         if (displayIndex == 1) {
             prev.disable();
@@ -260,25 +281,48 @@ public class GUIDataDisplay {
         if (displayIndex + 8 > songList.getSize()) {
             next.disable();
         }
-        //updates the glyphs and legend
+        // updates the glyphs and legend
         updateGlyphs();
         updateLegend();
     }
-    
+
+
     private void updateGlyphs() {
-        //update glyphs to display the proper data 
-            //TO DO
+        // update glyphs to display the proper data
+        // TO DO
     }
-    
+
+
     private void updateLegend() {
-        //TO DO 
-        //needs functionality to change text when the category changes
-        //DO NOT adjust the spacing, text Dave if the spacing is off
-        TextShape legendTitle = new TextShape(0, 0, "Hobby Legend");
-        TextShape legendHobby1 = new TextShape(0, 0, "Read");
-        TextShape legendHobby2 = new TextShape(0, 0, "Art");
-        TextShape legendHobby3 = new TextShape(0, 0, "Sports");
-        TextShape legendHobby4 = new TextShape(0, 0, "Music");
+        // TO DO
+        // needs functionality to change text when the category changes
+        // DO NOT adjust the spacing, text Dave if the spacing is off
+        TextShape legendTitle = new TextShape(0, 0, "");
+        TextShape legendHobby1 = new TextShape(0, 0, "");
+        TextShape legendHobby2 = new TextShape(0, 0, "");
+        TextShape legendHobby3 = new TextShape(0, 0, "");
+        TextShape legendHobby4 = new TextShape(0, 0, "");
+        if (currentCategory == CategoryEnum.HOBBY) {
+            legendTitle = new TextShape(0, 0, "Hobby Legend");
+            legendHobby1 = new TextShape(0, 0, "Read");
+            legendHobby2 = new TextShape(0, 0, "Art");
+            legendHobby3 = new TextShape(0, 0, "Sports");
+            legendHobby4 = new TextShape(0, 0, "Music");
+        }
+        else if (currentCategory == CategoryEnum.MAJOR) {
+            legendTitle = new TextShape(0, 0, "Hobby Legend");
+            legendHobby1 = new TextShape(0, 0, "Read");
+            legendHobby2 = new TextShape(0, 0, "Art");
+            legendHobby3 = new TextShape(0, 0, "Sports");
+            legendHobby4 = new TextShape(0, 0, "Music");
+        }
+        else if (currentCategory == CategoryEnum.REGION) {
+            legendTitle = new TextShape(0, 0, "Hobby Legend");
+            legendHobby1 = new TextShape(0, 0, "Read");
+            legendHobby2 = new TextShape(0, 0, "Art");
+            legendHobby3 = new TextShape(0, 0, "Sports");
+            legendHobby4 = new TextShape(0, 0, "Music");
+        }
         Shape legendPole = new Shape(0, 0, GLYPH_BAR_HEIGHT, GLYPH_BAR_HEIGHT
             * 3 + GLYPH_BAR_SPACING * 4, Color.BLACK);
         TextShape legendSongTitle = new TextShape(0, 0, "Song Title");
@@ -353,4 +397,3 @@ public class GUIDataDisplay {
     }
 
 }
-
