@@ -21,7 +21,7 @@ public class GUIDataDisplay {
     private static final int DEFAULT_BAR_LENGTH = 40;
     private static final int GLYPH_TEXT_SPACING = 5;
     private static final int LEGEND_BUFFER = 8;
-    
+    private static final int DEFAULT_OFFSET = 50;
     //button fields
     private Window window;
     private Button prev;
@@ -85,7 +85,7 @@ public class GUIDataDisplay {
         quit = new Button("Quit");
         quit.onClick(this, "clickedQuit");
         window.addButton(quit, WindowSide.SOUTH);
-        CreatLife();
+        musicBars();
         //update window graphics to default
         updateDisplay();
         
@@ -93,13 +93,11 @@ public class GUIDataDisplay {
         
         
     }
-    public void CreatLife() {
-        int CurrentXOffSet = DEFAULT_BAR_LENGTH;
-        int i = 0;
-        /*for( i = 0 ;i < songList.getSize() ; i++) {
-            System.out.println(songList.getEntry(i));
-            System.out.println(songList.getSize());
-        }*/
+    public void musicBars() {
+        int CurrentXOffSet = DEFAULT_OFFSET;
+        int currentYOffSet = (window.getGraphPanelHeight() / 2) - (GLYPH_BAR_HEIGHT * 4
+            + GLYPH_BAR_SPACING * 3 / 2);
+        for( int i = 0 ;i < songList.getSize() ; i++) {
         Song current = songList.getEntry(i);
         int readingHeardPercent = current.getCategory(CategoryEnum.HOBBY)
             .getStats(4).getHeardPercent();
@@ -127,9 +125,7 @@ public class GUIDataDisplay {
         Shape bar6;
         Shape bar7;
         Shape bar8;
-        pole = new Shape((window.getGraphPanelWidth() / 2) - (GLYPH_BAR_HEIGHT
-            / 2), (window.getGraphPanelHeight() / 2) - (GLYPH_BAR_HEIGHT * 4
-                + GLYPH_BAR_SPACING * 3 / 2), GLYPH_BAR_HEIGHT, GLYPH_BAR_HEIGHT
+        pole = new Shape(CurrentXOffSet,currentYOffSet , GLYPH_BAR_HEIGHT, GLYPH_BAR_HEIGHT
                     * 4 + GLYPH_BAR_SPACING * 5, Color.BLACK);
         window.addShape(pole);
         //= new Shape(x, y, width, height, color)
@@ -140,7 +136,7 @@ public class GUIDataDisplay {
             GLYPH_BAR_HEIGHT, Color.MAGENTA);
         // the amount of people who have heard it in ART
         thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)artHeardPercent/100.0));
-        bar2 = new Shape(pole.getX() - thisLength, pole.getY() + 2
+        bar2 = new Shape(pole.getX() - thisLength , pole.getY() + 2
             * GLYPH_BAR_SPACING + 1 * GLYPH_BAR_HEIGHT, thisLength,
             GLYPH_BAR_HEIGHT, Color.BLUE);
         // the amount of people who have heard it in SPORTS 
@@ -157,19 +153,23 @@ public class GUIDataDisplay {
         window.addShape(bar2);
         window.addShape(bar3);
         window.addShape(bar4);
+        // the amount of people who have Liked it in READING
         thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)readingLikePercent/100.0));
         bar5 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 1
             * GLYPH_BAR_SPACING + 0 * GLYPH_BAR_HEIGHT, thisLength,
             GLYPH_BAR_HEIGHT, Color.MAGENTA);
+        // the amount of people who have Liked it in ART
         thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)artLikePercent/100.0));
         bar6 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 2
             * GLYPH_BAR_SPACING + 1 * GLYPH_BAR_HEIGHT, thisLength,
             GLYPH_BAR_HEIGHT, Color.BLUE);
+        // the amount of people who have Liked it in SPORTS
         thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)sportsLikePercent/100.0));
         bar7 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 3
             * GLYPH_BAR_SPACING + 2 * GLYPH_BAR_HEIGHT, thisLength,
             GLYPH_BAR_HEIGHT);
-        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)sportsLikePercent/100.0));
+        // the amount of people who have Liked it in MUSIC
+        thisLength = (int)((double)DEFAULT_BAR_LENGTH * ((double)musicLikePercent/100.0));
         bar8 = new Shape(pole.getX() + GLYPH_BAR_HEIGHT, pole.getY() + 4
             * GLYPH_BAR_SPACING + 3 * GLYPH_BAR_HEIGHT, thisLength,
             GLYPH_BAR_HEIGHT, Color.GREEN);
@@ -180,15 +180,22 @@ public class GUIDataDisplay {
         TextShape songName = new TextShape(0, 0, songList.getEntry(i).getTitle());
         TextShape songArtist = new TextShape(0, 0, songList.getEntry(i).getArtistName());
         songName.moveTo(pole.getX() + (pole.getWidth() / 2) - (songName
-            .getWidth() / 2), pole.getY() - songName.getHeight() - songArtist
+            .getWidth() / 2) , pole.getY() - songName.getHeight() - songArtist
                 .getHeight() - (GLYPH_TEXT_SPACING));
         songArtist.moveTo(pole.getX() + (pole.getWidth() / 2) - (songArtist
-            .getWidth() / 2), pole.getY() - songArtist.getHeight()
+            .getWidth() / 2) , pole.getY() - songArtist.getHeight()
                 - (GLYPH_TEXT_SPACING));
         songName.setBackgroundColor(Color.WHITE);
         songArtist.setBackgroundColor(Color.WHITE);
         window.addShape(songName);
         window.addShape(songArtist);
+        CurrentXOffSet = DEFAULT_BAR_LENGTH * 2 + CurrentXOffSet + DEFAULT_OFFSET;
+        if(CurrentXOffSet + DEFAULT_BAR_LENGTH * 2 > window.getGraphPanelWidth() - LEGEND_BUFFER) {
+            currentYOffSet = currentYOffSet + DEFAULT_OFFSET * 2; 
+            CurrentXOffSet = DEFAULT_OFFSET;
+        }
+
+       }
     }
     public void clickedPrev(Button button) {
         displayIndex -= 8;
