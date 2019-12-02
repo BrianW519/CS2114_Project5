@@ -20,7 +20,6 @@ public class GUIDataDisplay {
     private static final int GLYPH_TEXT_SPACING = 5;
     private static final int LEGEND_BUFFER = 8;
     private static final int DEFAULT_OFFSET = 50;
-    private int currentPlace = 0;
     // button fields
     private Window window;
     private Button prev;
@@ -38,6 +37,7 @@ public class GUIDataDisplay {
     private SongList<Song> songList;
     private int displayIndex;
     private CategoryEnum currentCategory;
+    private int CurrentMusicIndex = 0;;
 
 
     /**
@@ -98,7 +98,7 @@ public class GUIDataDisplay {
         int CurrentXOffSet = DEFAULT_OFFSET;
         int currentYOffSet = (window.getGraphPanelHeight() / 2) - (GLYPH_BAR_HEIGHT * 4
             + GLYPH_BAR_SPACING * 3 / 2);
-        for( int i = 0 ;i < songList.getSize() &&  MaxPerPage != CurrentPlace; i++) {
+        for( int i = CurrentMusicIndex ;i < songList.getSize() &&  MaxPerPage != CurrentPlace; i++) {
             CurrentPlace++;
             Song current = songList.getEntry(i);
             int readingHeardPercent = current.getCategory(CategoryEnum.HOBBY)
@@ -214,61 +214,61 @@ public class GUIDataDisplay {
 
 
     public void clickedPrev(Button button) {
-        displayIndex -= 8;
+        CurrentMusicIndex -= 9;
         updateDisplay();
     }
 
 
     public void clickedSortByArtist(Button button) {
-        displayIndex = 0;
+        CurrentMusicIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_ARTIST);
         updateDisplay();
     }
 
 
     public void clickedSortByTitle(Button button) {
-        displayIndex = 0;
+        CurrentMusicIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_TITLE);
         updateDisplay();
     }
 
 
     public void clickedSortByYear(Button button) {
-        displayIndex = 0;
+        CurrentMusicIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_DATE);
         updateDisplay();
     }
 
 
     public void clickedSortByGenre(Button button) {
-        displayIndex = 0;
+        CurrentMusicIndex = 0;
         songList.insertionSort(Song.COMPARE_BY_GENRE);
         updateDisplay();
     }
 
 
     public void clickedNext(Button button) {
-        displayIndex += 8;
+        CurrentMusicIndex += 9;
         updateDisplay();
     }
 
 
     public void clickedRepHobby(Button button) {
-        displayIndex = 1;
+        CurrentMusicIndex = 0;
         currentCategory = CategoryEnum.HOBBY;
         updateDisplay();
     }
 
 
     public void clickedRepMajor(Button button) {
-        displayIndex = 1;
+        CurrentMusicIndex = 0;
         currentCategory = CategoryEnum.MAJOR;
         updateDisplay();
     }
 
 
     public void clickedRepRegion(Button button) {
-        displayIndex = 1;
+        CurrentMusicIndex = 0;
         currentCategory = CategoryEnum.REGION;
         updateDisplay();
     }
@@ -280,13 +280,20 @@ public class GUIDataDisplay {
 
 
     private void updateDisplay() {
-        if (displayIndex == 1) {
+        window.removeAllShapes();
+        if (CurrentMusicIndex == 0) {
             prev.disable();
         }
-        if (displayIndex + 8 > songList.getSize()) {
+        else {
+            prev.enable();
+        }
+        if (CurrentMusicIndex + 9 > songList.getSize()) {
             next.disable();
         }
-        // updates the glyphs and legend
+        else {
+            next.enable();
+        }
+        musicBars();
         updateGlyphs();
         updateLegend();
     }
