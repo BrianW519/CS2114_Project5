@@ -58,8 +58,6 @@ public class Input {
      * @throws ParseException
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException {
-        //TO DO 
-        //Needs functionality for default case (testing purposes) and args inputs
         FileReader reader = null;
         if (args.length != 2) {
             try {
