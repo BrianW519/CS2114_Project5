@@ -60,34 +60,30 @@ public class Input {
     public static void main(String[] args) throws FileNotFoundException, ParseException {
         //TO DO 
         //Needs functionality for default case (testing purposes) and args inputs
-        /*if (args.length != 2) {
-            FileReader reader = null;
+        FileReader reader = null;
+        if (args.length != 2) {
             try {
-                //reader = new FileReader(args[0], args[1]);
                 reader = new FileReader("MusicSurveyData2018HolesHalf.csv", "SongList2018HalfSongs.csv");
             }
             catch (ParseException e) {
                 e.printStackTrace();
             }
-            new GUIDataDisplay(reader.getSongList());
         }
         else {
-            FileReader reader = null;
             try {
                 reader = new FileReader(args[0], args[1]);
             }
             catch (ParseException e) {
                 e.printStackTrace();
             }
-            SongList<Song> currentSongs = reader.getSongList();
-            currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
-            printer(currentSongs);
-            currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
-            printer(currentSongs);
-        }*/
-    FileReader reader = null;
-    reader = new FileReader("MusicSurveyData2018HolesHalf.csv", "SongList2018HalfSongs.csv"); 
-    printer(reader.getSongList());
+        }
+    
+ 
+        SongList<Song> currentSongs = reader.getSongList();
+        currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
+        printer(currentSongs);
+        currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
+        printer(currentSongs);
     GUIDataDisplay gui = new GUIDataDisplay(reader.getSongList());
 
     }
