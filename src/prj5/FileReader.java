@@ -95,8 +95,9 @@ public class FileReader {
                     major = SubEnum.OTHER;
                     break;
                 default:
-                    throw new ParseException(
-                        "Person did not indicate their hobby");
+                    continue;
+                    /*throw new ParseException(
+                        "Person did not indicate their hobby");*/
             }
 
             switch (data[3]) {
@@ -113,8 +114,9 @@ public class FileReader {
                     region = SubEnum.USA_OTHER;
                     break;
                 default:
-                    throw new ParseException(
-                        "Person did not indicate their hobby");
+                    continue;
+                    //throw new ParseException(
+                    //    "Person did not indicate their hobby");
             }
 
             switch (data[4]) {
@@ -131,8 +133,9 @@ public class FileReader {
                     hobby = SubEnum.ART;
                     break;
                 default:
-                    throw new ParseException(
-                        "Person did not indicate their hobby");
+                    continue;
+                    //throw new ParseException(
+                    //    "Person did not indicate their hobby");
             }
 
             Iterator<Song> iter = songs.iterator();
