@@ -61,7 +61,7 @@ public class Input {
         FileReader reader = null;
         if (args.length != 2) {
             try {
-                reader = new FileReader(args[1], args[0]);
+                reader = new FileReader("MusicSurveyData2019F.csv", "SongList2019F.csv");
             }
             catch (ParseException e) {
                 e.printStackTrace();
