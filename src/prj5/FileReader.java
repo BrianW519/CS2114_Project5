@@ -96,8 +96,6 @@ public class FileReader {
                     break;
                 default:
                     continue;
-                    /*throw new ParseException(
-                        "Person did not indicate their hobby");*/
             }
 
             switch (data[3]) {
@@ -115,8 +113,6 @@ public class FileReader {
                     break;
                 default:
                     continue;
-                    //throw new ParseException(
-                    //    "Person did not indicate their hobby");
             }
 
             switch (data[4]) {
@@ -134,8 +130,6 @@ public class FileReader {
                     break;
                 default:
                     continue;
-                    //throw new ParseException(
-                    //    "Person did not indicate their hobby");
             }
 
             Iterator<Song> iter = songs.iterator();
