@@ -94,7 +94,8 @@ public class GUIDataDisplay {
 
         int MaxPerPage = 9;
         int CurrentPlace = 0;
-        int CurrentXOffSet = DEFAULT_OFFSET;
+        int row = 0;
+        int CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER)/5;
         int currentYOffSet = (window.getGraphPanelHeight() / 3)
             - (GLYPH_BAR_HEIGHT * 4 + GLYPH_BAR_SPACING * 3 / 2) - 10;
         for (int i = CurrentMusicIndex; i < songList.getSize()
@@ -206,13 +207,14 @@ public class GUIDataDisplay {
             extraData.setBackgroundColor(Color.WHITE);
             window.addShape(songName);
             window.addShape(extraData);
-            CurrentXOffSet = DEFAULT_BAR_LENGTH * 2 + CurrentXOffSet
-                + DEFAULT_OFFSET;
-            if (CurrentXOffSet + DEFAULT_BAR_LENGTH * 2 > window
-                .getGraphPanelWidth() - LEGEND_BUFFER) {
+            CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER)/4 + CurrentXOffSet;
+            row++;
+            if (row == 3) {
                 currentYOffSet = currentYOffSet + (DEFAULT_OFFSET - 85) * 2;
-                CurrentXOffSet = DEFAULT_OFFSET;
+                CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER)/5;
+                row = 0;
             }
+
 
         }
     }
