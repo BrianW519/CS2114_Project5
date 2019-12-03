@@ -61,7 +61,7 @@ public class Input {
         FileReader reader = null;
         if (args.length != 2) {
             try {
-                reader = new FileReader("MusicSurveyData2018HolesHalf.csv", "SongList2018HalfSongs.csv");
+                reader = new FileReader(args[1], args[0]);
             }
             catch (ParseException e) {
                 e.printStackTrace();
@@ -71,7 +71,7 @@ public class Input {
             try {
                 reader = new FileReader(args[0], args[1]);
             }
-            catch (ParseException e) {
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -79,9 +79,6 @@ public class Input {
  
         SongList<Song> currentSongs = reader.getSongList();
         currentSongs.insertionSort(Song.COMPARE_BY_GENRE);
-        printer(currentSongs);
-        currentSongs.insertionSort(Song.COMPARE_BY_TITLE);
-        printer(currentSongs);
     GUIDataDisplay gui = new GUIDataDisplay(reader.getSongList());
 
     }
