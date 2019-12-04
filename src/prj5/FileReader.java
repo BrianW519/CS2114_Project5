@@ -19,20 +19,46 @@ public class FileReader {
     private SongList<Song> songs;
 
 
+    /**
+     * Constructor
+     * 
+     * @param inputFile
+     *            the file with student input
+     * @param songFile
+     *            the file with the song list
+     * @throws FileNotFoundException
+     *             if the file isnt found
+     * @throws ParseException
+     *             if there is an error parsing
+     */
     public FileReader(String inputFile, String songFile)
-        throws FileNotFoundException, ParseException {
+        throws FileNotFoundException,
+        ParseException {
 
         readSongFile(songFile);
         readInputFile(inputFile);
     }
 
 
+    /**
+     * Returns the song list
+     * 
+     * @return the song list
+     */
     public SongList<Song> getSongList() {
         return songs;
     }
 
 
-    private void readSongFile(String fileName) throws ParseException, FileNotFoundException {
+    /**
+     * Reads the song file and puts the song data into the song list
+     * 
+     * @param fileName
+     *            the name of the file
+     */
+    private void readSongFile(String fileName)
+        throws ParseException,
+        FileNotFoundException {
         songs = new SongList<Song>();
 
         String title;
@@ -50,8 +76,8 @@ public class FileReader {
             String[] data = line.split(",");
 
             if (data.length < 4) {
-                 throw new ParseException(
-                 "Not all data for the song is present");
+                throw new ParseException(
+                    "Not all data for the song is present");
             }
             title = data[0];
             artist = data[1];
@@ -66,7 +92,15 @@ public class FileReader {
     }
 
 
-    private void readInputFile(String fileName) throws FileNotFoundException, ParseException {
+    /**
+     * Reads the student input file
+     * 
+     * @param fileName
+     *            the name of the file
+     */
+    private void readInputFile(String fileName)
+        throws FileNotFoundException,
+        ParseException {
 
         SubEnum hobby;
         SubEnum major;
@@ -150,11 +184,11 @@ public class FileReader {
                         iter.next();
                     }
                 }
-                else if(i == data.length - 1) {
+                else if (i == data.length - 1) {
                     if (data[i].equals("No")) {
                         iter.next().updateData(hobby, major, region, 0);
                     }
-                    else if(data[i].equals("Yes")) {
+                    else if (data[i].equals("Yes")) {
                         iter.next().updateData(hobby, major, region, 100);
                     }
                 }

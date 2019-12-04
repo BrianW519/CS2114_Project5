@@ -42,8 +42,10 @@ public class GUIDataDisplay {
 
     /**
      * The constructor
+     * 
+     * @param inputList
+     *            the song list
      */
-
     public GUIDataDisplay(SongList<Song> inputList) {
 
         // default display properties
@@ -90,12 +92,15 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Display all the glyphs of the songs
+     */
     public void displayGlyphs() {
 
         int MaxPerPage = 9;
         int CurrentPlace = 0;
         int row = 0;
-        int CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER)/5;
+        int CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER) / 5;
         int currentYOffSet = (window.getGraphPanelHeight() / 3)
             - (GLYPH_BAR_HEIGHT * 4 + GLYPH_BAR_SPACING * 3 / 2) - 10;
         for (int i = CurrentMusicIndex; i < songList.getSize()
@@ -207,14 +212,14 @@ public class GUIDataDisplay {
             extraData.setBackgroundColor(Color.WHITE);
             window.addShape(songName);
             window.addShape(extraData);
-            CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER)/4 + CurrentXOffSet;
+            CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER) / 4
+                + CurrentXOffSet;
             row++;
             if (row == 3) {
                 currentYOffSet = currentYOffSet + (DEFAULT_OFFSET - 85) * 2;
-                CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER)/5;
+                CurrentXOffSet = (window.getWidth() - LEGEND_BUFFER) / 5;
                 row = 0;
             }
-
 
         }
     }
@@ -252,12 +257,24 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the previous button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedPrev(Button button) {
         CurrentMusicIndex -= 9;
         updateDisplay();
     }
 
 
+    /**
+     * Runs when the sort by artist button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedSortByArtist(Button button) {
         CurrentMusicIndex = 0;
         sortType = "artist";
@@ -266,6 +283,12 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the sort by title button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedSortByTitle(Button button) {
         CurrentMusicIndex = 0;
         sortType = "title";
@@ -274,6 +297,12 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the sort by year button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedSortByYear(Button button) {
         CurrentMusicIndex = 0;
         sortType = "year";
@@ -282,6 +311,12 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the sort by genre button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedSortByGenre(Button button) {
         CurrentMusicIndex = 0;
         sortType = "genre";
@@ -290,12 +325,24 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the next button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedNext(Button button) {
         CurrentMusicIndex += 9;
         updateDisplay();
     }
 
 
+    /**
+     * Runs when the represent hobby button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedRepHobby(Button button) {
         CurrentMusicIndex = 0;
         currentCategory = CategoryEnum.HOBBY;
@@ -303,6 +350,12 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the represent major button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedRepMajor(Button button) {
         CurrentMusicIndex = 0;
         currentCategory = CategoryEnum.MAJOR;
@@ -310,6 +363,12 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the represent region button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedRepRegion(Button button) {
         CurrentMusicIndex = 0;
         currentCategory = CategoryEnum.REGION;
@@ -317,11 +376,20 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Runs when the quit button is clicked
+     * 
+     * @param button
+     *            the button clicked
+     */
     public void clickedQuit(Button button) {
         System.exit(0);
     }
 
 
+    /**
+     * Helper method that updates the display
+     */
     private void updateDisplay() {
         window.removeAllShapes();
         if (CurrentMusicIndex == 0) {
@@ -341,6 +409,9 @@ public class GUIDataDisplay {
     }
 
 
+    /**
+     * Updates the legend when a new thing is represented
+     */
     private void updateLegend() {
         TextShape legendTitle = new TextShape(0, 0, "");
         TextShape legendHobby1 = new TextShape(0, 0, "");
